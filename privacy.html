@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Aww… That Face</title>
+<meta name="description" content="Privacy policy for Aww… That Face, the daily pet photo app for iOS.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23FDF6EC'/><circle cx='37' cy='40' r='14' fill='%233B2314'/><circle cx='63' cy='40' r='14' fill='%233B2314'/><ellipse cx='50' cy='61' rx='10' ry='7' fill='%23D4856B'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,800&family=DM+Sans:wght@400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --warm-cream: #FDF6EC;
+    --soft-peach: #F5E1D0;
+    --golden-amber: #E8A87C;
+    --deep-terracotta: #D4856B;
+    --warm-brown: #6B4226;
+    --rich-espresso: #3B2314;
+    --sage-green: #A8B5A2;
+    --off-white: #FEFCF9;
+    --warm-gray: #A89B8C;
+    --charcoal: #2C2420;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--off-white);
+    color: var(--charcoal);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Ambient background */
+  .ambient { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .ambient .orb { position: absolute; border-radius: 50%; filter: blur(80px); }
+  .orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(232,168,124,0.15) 0%, transparent 70%); top: -10%; right: -5%; animation: drift1 20s ease-in-out infinite; }
+  .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(242,196,196,0.12) 0%, transparent 70%); bottom: -5%; left: -10%; animation: drift2 25s ease-in-out infinite; }
+  @keyframes drift1 { 0%, 100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-40px,30px) scale(1.05); } 66% { transform: translate(20px,-20px) scale(0.95); } }
+  @keyframes drift2 { 0%, 100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-40px) scale(1.08); } 66% { transform: translate(-20px,20px) scale(0.97); } }
+
+  /* Grain */
+  .grain { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 1; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-repeat: repeat; background-size: 256px 256px; }
+
+  /* Page */
+  .page {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 2rem 4rem;
+  }
+
+  .content {
+    max-width: 560px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Pet face icon */
+  .pet-face {
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: softAppear 1s ease 0.1s forwards;
+  }
+
+  .pet-face svg { filter: drop-shadow(0 4px 20px rgba(59,35,20,0.08)); }
+
+  /* Logo */
+  .logo {
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: softAppear 1s ease 0.2s forwards;
+  }
+
+  .logo a { text-decoration: none; }
+
+  .logo-awe {
+    font-family: 'Caveat', cursive;
+    font-weight: 500;
+    font-size: 1.6rem;
+    color: var(--golden-amber);
+    display: block;
+    margin-bottom: -0.3em;
+    margin-left: 0.05em;
+    text-align: left;
+  }
+
+  .logo-main {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 800;
+    font-size: 3.2rem;
+    color: var(--charcoal);
+    line-height: 1;
+  }
+
+  .logo-main em { font-style: italic; color: var(--deep-terracotta); }
+
+  /* Page title */
+  .page-title {
+    font-family: 'Caveat', cursive;
+    font-weight: 500;
+    font-size: 1.6rem;
+    color: var(--golden-amber);
+    margin-bottom: 2rem;
+    text-align: center;
+    opacity: 0;
+    animation: softAppear 1s ease 0.3s forwards;
+  }
+
+  /* Policy content */
+  .policy {
+    width: 100%;
+    text-align: left;
+    opacity: 0;
+    animation: softAppear 1s ease 0.4s forwards;
+  }
+
+  .policy .updated {
+    font-size: 0.85rem;
+    color: var(--warm-gray);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .policy h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .policy h2:first-of-type { margin-top: 0; }
+
+  .policy p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--warm-brown);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .policy a {
+    color: var(--deep-terracotta);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(212,133,107,0.3);
+    transition: all 0.2s ease;
+  }
+
+  .policy a:hover {
+    color: var(--golden-amber);
+    border-bottom-color: var(--golden-amber);
+  }
+
+  .policy .highlight {
+    background: var(--warm-cream);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    border-left: 3px solid var(--golden-amber);
+  }
+
+  .policy .highlight p {
+    margin-bottom: 0;
+    font-weight: 500;
+    color: var(--charcoal);
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 4rem;
+    text-align: center;
+    opacity: 0;
+    animation: softAppear 1s ease 0.5s forwards;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .footer-links a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--warm-gray);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover { color: var(--golden-amber); }
+
+  .footer-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    color: var(--warm-gray);
+    letter-spacing: 0.05em;
+  }
+
+  @keyframes softAppear {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 520px) {
+    .page { padding: 2rem 1.5rem 3rem; }
+    .logo-main { font-size: 2.6rem; }
+    .policy .highlight { padding: 1rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ambient">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+</div>
+<div class="grain"></div>
+
+<div class="page">
+  <div class="content">
+
+    <!-- Pet face icon -->
+    <div class="pet-face">
+      <svg width="70" height="70" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="90" height="90" rx="26" fill="#FDF6EC"/>
+        <circle cx="27" cy="40" r="14" fill="#3B2314"/>
+        <circle cx="22" cy="35" r="5" fill="white" opacity="0.4"/>
+        <circle cx="63" cy="40" r="14" fill="#3B2314"/>
+        <circle cx="58" cy="35" r="5" fill="white" opacity="0.4"/>
+        <ellipse cx="45" cy="61" rx="10" ry="7" fill="#D4856B"/>
+      </svg>
+    </div>
+
+    <!-- Logo -->
+    <div class="logo">
+      <a href="/">
+        <span class="logo-awe">Aww…</span>
+        <div class="logo-main">That <em>Face.</em></div>
+      </a>
+    </div>
+
+    <!-- Page title -->
+    <div class="page-title">Privacy Policy</div>
+
+    <!-- Policy content -->
+    <div class="policy">
+      <p class="updated">Last updated: February 2025</p>
+
+      <div class="highlight">
+        <p>The short version: Your photos stay on your device. We don't collect, upload, or sell your data. We don't even have a server to put it on.</p>
+      </div>
+
+      <h2>What the app does</h2>
+      <p>Aww… That Face is a daily pet photo app for iOS. You take one photo of your pet each day, and the app stores it on your device. That's the core of what it does.</p>
+
+      <h2>Photos &amp; data storage</h2>
+      <p>All photos you take or import in the app are stored locally on your iPhone. They are not uploaded to any server, cloud service, or third party. We do not have access to your photos.</p>
+      <p>App data — including your streak, settings, and pet profile — is stored on your device using Apple's built-in storage frameworks (SwiftData and UserDefaults). This data is not transmitted anywhere.</p>
+
+      <h2>No account required</h2>
+      <p>You do not need to create an account, provide an email address, or sign in to use the app. There is no login, no registration, and no user tracking.</p>
+
+      <h2>Notifications</h2>
+      <p>The app may ask permission to send you daily photo reminders via local push notifications. These notifications are generated entirely on your device — they are not sent from a server. You can disable them at any time in your iPhone's Settings.</p>
+
+      <h2>Camera &amp; photo library</h2>
+      <p>The app requests access to your camera to take daily photos, and optionally your photo library to import existing photos. These permissions are requested through Apple's standard permission dialogs. You can revoke them at any time in Settings → Privacy → Camera / Photos.</p>
+
+      <h2>Analytics &amp; tracking</h2>
+      <p>We do not use any analytics SDKs, tracking pixels, advertising identifiers, or third-party data collection tools. We don't know who you are, how often you use the app, or what photos you take.</p>
+
+      <h2>Future features</h2>
+      <p>In the future, the app may offer optional paid features such as photo book printing, video exports, and cloud backup. If and when those features are introduced, they will require you to opt in explicitly, and this privacy policy will be updated to reflect any data handling involved. We will never retroactively change how your existing data is handled without your consent.</p>
+
+      <h2>Third-party services</h2>
+      <p>At launch, the app uses no third-party services. No data leaves your device. If future updates introduce services like payment processing (Stripe) or print fulfillment (Gelato), only the minimum data required to complete your order (shipping address, payment info) will be shared with those providers, and only when you explicitly place an order.</p>
+
+      <h2>Children's privacy</h2>
+      <p>The app is not directed at children under 13. We do not knowingly collect personal information from children.</p>
+
+      <h2>Changes to this policy</h2>
+      <p>If we update this policy, we'll change the "last updated" date at the top. For significant changes, we'll also post a notice in the app.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about this policy? Reach out at <a href="mailto:awwthatface@gmail.com">awwthatface@gmail.com</a> or visit our <a href="/support">support page</a>.</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/support">Support</a>
+      </div>
+      <p class="footer-text">Made with 🧡 for pet lovers everywhere</p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aww… That Face — A daily photo ritual with your favorite face</title>
+<meta name="description" content="One photo of your pet, every day. Turn daily moments into photo books, prints, and video slideshows. Coming soon to iOS.">
+<meta property="og:title" content="Aww… That Face — Coming Soon">
+<meta property="og:description" content="A daily photo ritual with your favorite face. One photo. Every day. All the love.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://awwthatface.com">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23FDF6EC'/><circle cx='42' cy='48' r='5' fill='%233B2314'/><circle cx='58' cy='48' r='5' fill='%233B2314'/><ellipse cx='50' cy='57' rx='3.5' ry='2.5' fill='%23D4856B'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --warm-cream: #FDF6EC;
+    --soft-peach: #F5E1D0;
+    --golden-amber: #E8A87C;
+    --deep-terracotta: #D4856B;
+    --warm-brown: #6B4226;
+    --rich-espresso: #3B2314;
+    --blush-pink: #F2C4C4;
+    --sage-green: #A8B5A2;
+    --off-white: #FEFCF9;
+    --warm-gray: #A89B8C;
+    --charcoal: #2C2420;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--off-white);
+    color: var(--charcoal);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ========== AMBIENT BACKGROUND ========== */
+  .ambient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .ambient .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .orb-1 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(232,168,124,0.15) 0%, transparent 70%);
+    top: -10%;
+    right: -5%;
+    animation: drift1 20s ease-in-out infinite;
+  }
+
+  .orb-2 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(242,196,196,0.12) 0%, transparent 70%);
+    bottom: -5%;
+    left: -10%;
+    animation: drift2 25s ease-in-out infinite;
+  }
+
+  .orb-3 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(212,133,107,0.08) 0%, transparent 70%);
+    top: 40%;
+    left: 30%;
+    animation: drift3 18s ease-in-out infinite;
+  }
+
+  @keyframes drift1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-40px, 30px) scale(1.05); }
+    66% { transform: translate(20px, -20px) scale(0.95); }
+  }
+
+  @keyframes drift2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -40px) scale(1.08); }
+    66% { transform: translate(-20px, 20px) scale(0.97); }
+  }
+
+  @keyframes drift3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(50px, -30px) scale(1.1); }
+  }
+
+  /* ========== GRAIN TEXTURE ========== */
+  .grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+  }
+
+  /* ========== MAIN CONTENT ========== */
+  .page {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+  }
+
+  .content {
+    max-width: 620px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ========== PET FACE ICON ========== */
+  .pet-face {
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: softAppear 1.2s ease 0.2s forwards;
+  }
+
+  .pet-face svg {
+    filter: drop-shadow(0 4px 20px rgba(59, 35, 20, 0.08));
+  }
+
+  /* Subtle idle animation — like a pet tilting its head */
+  .pet-face svg {
+    animation: headTilt 6s ease-in-out 2s infinite;
+  }
+
+  @keyframes headTilt {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-3deg); }
+    75% { transform: rotate(3deg); }
+  }
+
+  /* ========== LOGO ========== */
+  .logo {
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: softAppear 1.2s ease 0.4s forwards;
+  }
+
+  .logo-awe {
+    font-family: 'Caveat', cursive;
+    font-weight: 500;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    color: var(--golden-amber);
+    display: block;
+    margin-bottom: -0.3em;
+    margin-left: 0.05em;
+    text-align: left;
+  }
+
+  .logo-main {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 800;
+    font-size: clamp(3.5rem, 9vw, 5.5rem);
+    color: var(--charcoal);
+    line-height: 1;
+  }
+
+  .logo-main em {
+    font-style: italic;
+    color: var(--deep-terracotta);
+  }
+
+  /* ========== TAGLINE ========== */
+  .tagline {
+    font-family: 'Caveat', cursive;
+    font-weight: 500;
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    color: var(--golden-amber);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: softAppear 1.2s ease 0.6s forwards;
+  }
+
+  /* ========== DESCRIPTION ========== */
+  .description {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    color: var(--warm-brown);
+    line-height: 1.8;
+    max-width: 480px;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: softAppear 1.2s ease 0.8s forwards;
+  }
+
+  /* ========== COMING SOON BADGE ========== */
+  .coming-soon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--deep-terracotta);
+    background: var(--soft-peach);
+    padding: 0.6rem 1.5rem;
+    border-radius: 100px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: softAppear 1.2s ease 1s forwards;
+  }
+
+  .coming-soon .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--deep-terracotta);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  /* ========== EMAIL FORM ========== */
+  .email-section {
+    width: 100%;
+    max-width: 440px;
+    opacity: 0;
+    animation: softAppear 1.2s ease 1.2s forwards;
+  }
+
+  .email-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--warm-brown);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .email-form {
+    display: flex;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .email-input {
+    flex: 1;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--charcoal);
+    background: var(--warm-cream);
+    border: 1.5px solid var(--soft-peach);
+    border-radius: 12px;
+    padding: 0.9rem 1.2rem;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  .email-input::placeholder {
+    color: var(--warm-gray);
+  }
+
+  .email-input:focus {
+    border-color: var(--golden-amber);
+    box-shadow: 0 0 0 3px rgba(232, 168, 124, 0.15);
+  }
+
+  .email-button {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--rich-espresso);
+    background: var(--golden-amber);
+    border: none;
+    border-radius: 12px;
+    padding: 0.9rem 1.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .email-button:hover {
+    background: var(--deep-terracotta);
+    color: var(--warm-cream);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(212, 133, 107, 0.3);
+  }
+
+  .email-button:active {
+    transform: translateY(0);
+  }
+
+  /* Success state */
+  .email-success {
+    display: none;
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    color: var(--sage-green);
+    padding: 1rem;
+    animation: softAppear 0.6s ease forwards;
+  }
+
+  .email-section.submitted .email-form { display: none; }
+  .email-section.submitted .email-label { display: none; }
+  .email-section.submitted .email-success { display: block; }
+
+  /* ========== FEATURES PREVIEW ========== */
+  .features {
+    display: flex;
+    gap: 2rem;
+    margin-top: 4rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: softAppear 1.2s ease 1.4s forwards;
+  }
+
+  .feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 120px;
+  }
+
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--warm-cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
+  }
+
+  .feature:hover .feature-icon {
+    transform: translateY(-3px) scale(1.05);
+  }
+
+  .feature-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--warm-gray);
+    letter-spacing: 0.03em;
+  }
+
+  /* ========== SOCIAL LINKS ========== */
+  .social-section {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 3rem;
+    opacity: 0;
+    animation: softAppear 1.2s ease 1.5s forwards;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--warm-cream);
+    border: 1.5px solid var(--soft-peach);
+    color: var(--warm-brown);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .social-link svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  .social-link:hover {
+    background: var(--golden-amber);
+    border-color: var(--golden-amber);
+    color: var(--rich-espresso);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(232, 168, 124, 0.3);
+  }
+
+  /* ========== FOOTER ========== */
+  .footer {
+    margin-top: 3rem;
+    text-align: center;
+    opacity: 0;
+    animation: softAppear 1.2s ease 1.6s forwards;
+  }
+
+  .footer-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    color: var(--warm-gray);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-text a {
+    color: var(--golden-amber);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-text a:hover {
+    color: var(--deep-terracotta);
+  }
+
+  /* ========== ANIMATIONS ========== */
+  @keyframes softAppear {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 520px) {
+    .email-form {
+      flex-direction: column;
+    }
+
+    .email-button {
+      width: 100%;
+      padding: 1rem;
+    }
+
+    .features {
+      gap: 1.5rem;
+    }
+
+    .page {
+      padding: 2rem 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Ambient background -->
+<div class="ambient">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<!-- Grain texture -->
+<div class="grain"></div>
+
+<!-- Page content -->
+<div class="page">
+  <div class="content">
+
+    <!-- Pet face icon -->
+    <div class="pet-face">
+      <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="90" height="90" rx="26" fill="#FDF6EC"/>
+        <circle cx="36" cy="40" r="7" fill="#3B2314"/>
+        <circle cx="54" cy="40" r="7" fill="#3B2314"/>
+        <circle cx="33.5" cy="37.5" r="2.5" fill="white" opacity="0.4"/>
+        <circle cx="51.5" cy="37.5" r="2.5" fill="white" opacity="0.4"/>
+        <ellipse cx="45" cy="51" rx="5" ry="3.5" fill="#D4856B"/>
+      </svg>
+    </div>
+
+    <!-- Logo -->
+    <div class="logo">
+      <span class="logo-awe">Aww…</span>
+      <div class="logo-main">That <em>Face.</em></div>
+    </div>
+
+    <!-- Tagline -->
+    <div class="tagline">You know the one.</div>
+
+    <!-- Description -->
+    <p class="description">
+      A daily photo ritual with your favorite face. One photo of your pet, every day — then watch those moments become photo books, prints, and video slideshows you'll love.
+    </p>
+
+    <!-- Coming soon badge -->
+    <div class="coming-soon">
+      <span class="dot"></span>
+      Coming Soon to iOS
+    </div>
+
+    <!-- Email signup -->
+    <div class="email-section" id="emailSection">
+      <label class="email-label">Get notified when we launch:</label>
+      <div class="email-form" id="emailForm">
+        <input
+          type="email"
+          class="email-input"
+          id="emailInput"
+          placeholder="your@email.com"
+          required
+          autocomplete="email"
+        >
+        <button class="email-button" id="emailButton" onclick="handleSubmit()">Notify Me</button>
+      </div>
+      <div class="email-success">
+        🧡 You're on the list! We'll let you know when it's time.
+      </div>
+    </div>
+
+    <!-- Features preview -->
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">📸</div>
+        <span class="feature-text">Daily Photos</span>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📖</div>
+        <span class="feature-text">Photo Books</span>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🖨️</div>
+        <span class="feature-text">Prints</span>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🎬</div>
+        <span class="feature-text">Video Slideshows</span>
+      </div>
+    </div>
+
+    <!-- Social links -->
+    <div class="social-section">
+      <!-- Instagram -->
+      <a href="https://instagram.com/awwthatface" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+      </a>
+      <!-- TikTok -->
+      <a href="https://tiktok.com/@awwthat.face" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/>
+        </svg>
+      </a>
+      <!-- X / Twitter -->
+      <a href="https://x.com/awwthatface" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (Twitter)">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p class="footer-text">
+        Made with 🧡 for pet lovers everywhere
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function handleSubmit() {
+  const input = document.getElementById('emailInput');
+  const section = document.getElementById('emailSection');
+  const button = document.getElementById('emailButton');
+  const email = input.value.trim();
+
+  if (!email || !email.includes('@') || !email.includes('.')) {
+    input.style.borderColor = '#D4856B';
+    input.focus();
+    return;
+  }
+
+  // Disable button while submitting
+  button.textContent = 'Sending…';
+  button.disabled = true;
+
+  // Submit to Google Forms
+  const formId = '1FAIpQLSdEEnpm6MeBN1v-N4edpBCShOg0l-G4UfeFvRXQmxpAHS3UaA';
+  const entryId = 'entry.912151270';
+  const url = `https://docs.google.com/forms/d/e/${formId}/formResponse`;
+
+  fetch(url, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `${entryId}=${encodeURIComponent(email)}`
+  }).then(() => {
+    section.classList.add('submitted');
+  }).catch(() => {
+    // no-cors mode always lands here, but the submission still works
+    section.classList.add('submitted');
+  });
+}
+
+// Allow Enter key to submit
+document.getElementById('emailInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    handleSubmit();
+  }
+});
+</script>
+
+</body>
+</html>
