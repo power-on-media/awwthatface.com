@@ -151,17 +151,6 @@
     align-items: center;
   }
 
-  .pet-face {
-    margin-bottom: 3rem;
-    opacity: 0;
-    animation: softAppear 1.2s ease 0.2s forwards;
-  }
-
-  .pet-face svg {
-    filter: drop-shadow(0 4px 20px rgba(59,35,20,0.08));
-    animation: headTilt 6s ease-in-out 2s infinite;
-  }
-
   @keyframes headTilt {
     0%, 100% { transform: rotate(0deg); }
     25% { transform: rotate(-3deg); }
@@ -446,6 +435,62 @@
     max-width: 220px;
   }
 
+  /* ========== HERO PHONE MOCKUP ========== */
+  .hero-phone-showcase {
+    position: relative;
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: softAppear 1.2s ease 0.2s forwards;
+  }
+
+  .hero-pet-photo {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    object-fit: cover;
+    filter: blur(0.5px) saturate(1.1);
+    opacity: 0.25;
+    z-index: 0;
+  }
+
+  .hero-device {
+    position: relative;
+    z-index: 1;
+    border-radius: 36px;
+    background: var(--charcoal);
+    padding: 10px;
+    box-shadow: 0 30px 80px rgba(59,35,20,0.18), 0 8px 24px rgba(59,35,20,0.1);
+    width: 220px;
+  }
+
+  .hero-device .device-notch {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 22px;
+    background: var(--charcoal);
+    border-radius: 0 0 14px 14px;
+    z-index: 3;
+  }
+
+  .hero-device .device-screen {
+    border-radius: 28px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .hero-device .device-screen img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
   /* ========== APP PREVIEW / MOCKUPS ========== */
   .app-preview {
     text-align: center;
@@ -464,7 +509,7 @@
     position: relative;
     border-radius: 28px;
     background: var(--charcoal);
-    padding: 12px;
+    padding: 8px;
     box-shadow: 0 20px 60px rgba(59,35,20,0.12), 0 4px 16px rgba(59,35,20,0.08);
     transition: transform 0.4s ease;
   }
@@ -473,169 +518,27 @@
     transform: translateY(-6px);
   }
 
+  .mockup-device .device-notch {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 14px;
+    background: var(--charcoal);
+    border-radius: 0 0 10px 10px;
+    z-index: 3;
+  }
+
   .mockup-screen {
-    border-radius: 20px;
+    border-radius: 22px;
     overflow: hidden;
-    aspect-ratio: 9/19.5;
-    position: relative;
   }
 
-  .mockup-screen-content {
+  .mockup-screen img {
     width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem 1rem;
-    text-align: center;
-  }
-
-  /* Today screen */
-  .screen-today {
-    background: linear-gradient(180deg, var(--warm-cream) 0%, var(--soft-peach) 100%);
-  }
-
-  .screen-today .screen-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
-  .screen-today .screen-label {
-    font-family: 'Caveat', cursive;
-    font-size: 1.1rem;
-    color: var(--golden-amber);
-    margin-bottom: 0.25rem;
-  }
-  .screen-today .screen-heading {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--charcoal);
-    margin-bottom: 0.75rem;
-  }
-  .screen-today .screen-circle {
-    width: 60px; height: 60px;
-    border-radius: 50%;
-    border: 3px solid var(--golden-amber);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    color: var(--golden-amber);
-    margin-top: 0.5rem;
-  }
-
-  /* Gallery screen */
-  .screen-gallery {
-    background: var(--warm-cream);
-  }
-
-  .screen-gallery .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 4px;
-    width: 100%;
-    padding: 0.5rem;
-  }
-
-  .gallery-thumb {
-    aspect-ratio: 1;
-    border-radius: 6px;
-  }
-
-  .gallery-thumb:nth-child(1) { background: var(--soft-peach); }
-  .gallery-thumb:nth-child(2) { background: var(--golden-amber); }
-  .gallery-thumb:nth-child(3) { background: var(--deep-terracotta); }
-  .gallery-thumb:nth-child(4) { background: var(--deep-terracotta); }
-  .gallery-thumb:nth-child(5) { background: var(--soft-peach); }
-  .gallery-thumb:nth-child(6) { background: var(--golden-amber); }
-  .gallery-thumb:nth-child(7) { background: var(--golden-amber); }
-  .gallery-thumb:nth-child(8) { background: var(--deep-terracotta); }
-  .gallery-thumb:nth-child(9) { background: var(--soft-peach); }
-
-  .screen-gallery .screen-label {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    color: var(--charcoal);
-    margin-bottom: 0.5rem;
-  }
-
-  /* Collections screen */
-  .screen-collections {
-    background: linear-gradient(180deg, var(--off-white) 0%, var(--warm-cream) 100%);
-  }
-
-  .collection-card {
-    width: 85%;
-    background: white;
-    border-radius: 12px;
-    padding: 0.6rem;
-    margin-bottom: 0.4rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  }
-
-  .collection-bar {
-    height: 8px;
-    border-radius: 4px;
-    margin-bottom: 0.35rem;
-  }
-
-  .collection-card:nth-child(2) .collection-bar { background: var(--golden-amber); width: 80%; }
-  .collection-card:nth-child(3) .collection-bar { background: var(--deep-terracotta); width: 65%; }
-  .collection-card:nth-child(4) .collection-bar { background: var(--soft-peach); width: 90%; }
-
-  .collection-card .collection-text {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.55rem;
-    color: var(--warm-gray);
-    text-align: left;
-  }
-
-  .screen-collections .screen-label {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    color: var(--charcoal);
-    margin-bottom: 0.5rem;
-  }
-
-  /* Create screen */
-  .screen-create {
-    background: linear-gradient(180deg, var(--soft-peach) 0%, var(--warm-cream) 100%);
-  }
-
-  .create-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    width: 85%;
-  }
-
-  .create-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: white;
-    border-radius: 10px;
-    padding: 0.55rem 0.7rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  }
-
-  .create-btn-icon {
-    font-size: 0.9rem;
-  }
-
-  .create-btn-text {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.6rem;
-    font-weight: 500;
-    color: var(--charcoal);
-  }
-
-  .screen-create .screen-label {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    color: var(--charcoal);
-    margin-bottom: 0.5rem;
+    height: auto;
+    display: block;
   }
 
   .mockup-caption {
@@ -645,6 +548,66 @@
     color: var(--warm-gray);
     margin-top: 0.75rem;
     text-align: center;
+  }
+
+  /* ========== PET PHOTO SECTIONS ========== */
+  .pet-photo-accent {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pet-photo-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+  }
+
+  .pet-photo-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.12;
+    filter: saturate(0.8);
+  }
+
+  .pet-photo-bg::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, var(--warm-cream) 0%, rgba(253,246,236,0.85) 40%, rgba(253,246,236,0.85) 60%, var(--warm-cream) 100%);
+  }
+
+  .pet-photo-accent .section-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ========== PET GALLERY STRIP ========== */
+  .pet-gallery-strip {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+  }
+
+  .pet-gallery-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 20px;
+    object-fit: cover;
+    box-shadow: 0 8px 30px rgba(59,35,20,0.1);
+    transition: transform 0.4s ease;
+    border: 3px solid rgba(255,255,255,0.8);
+  }
+
+  .pet-gallery-photo:hover {
+    transform: translateY(-4px) rotate(-1deg);
+  }
+
+  .pet-gallery-photo:nth-child(even):hover {
+    transform: translateY(-4px) rotate(1deg);
   }
 
   /* ========== SOCIAL PROOF ========== */
@@ -908,6 +871,36 @@
     .proof-stats {
       gap: 2rem;
     }
+
+    .hero-pet-photo {
+      width: 200px;
+      height: 200px;
+    }
+
+    .hero-device {
+      width: 180px;
+      border-radius: 28px;
+      padding: 8px;
+    }
+
+    .hero-device .device-notch {
+      width: 60px;
+      height: 16px;
+      top: 8px;
+    }
+
+    .hero-device .device-screen {
+      border-radius: 22px;
+    }
+
+    .pet-gallery-photo {
+      width: 120px;
+      height: 120px;
+    }
+
+    .pet-gallery-strip {
+      gap: 1rem;
+    }
   }
 
   @media (max-width: 520px) {
@@ -938,11 +931,40 @@
     }
 
     .mockup-device {
-      padding: 8px;
+      padding: 6px;
       border-radius: 20px;
     }
 
     .mockup-screen {
+      border-radius: 16px;
+    }
+
+    .mockup-device .device-notch {
+      width: 40px;
+      height: 10px;
+      top: 6px;
+      border-radius: 0 0 7px 7px;
+    }
+
+    .hero-device {
+      width: 160px;
+      border-radius: 24px;
+      padding: 6px;
+    }
+
+    .hero-device .device-notch {
+      width: 50px;
+      height: 14px;
+      top: 6px;
+    }
+
+    .hero-device .device-screen {
+      border-radius: 20px;
+    }
+
+    .pet-gallery-photo {
+      width: 100px;
+      height: 100px;
       border-radius: 14px;
     }
   }
@@ -964,15 +986,14 @@
   <section class="hero">
     <div class="hero-content">
 
-      <div class="pet-face">
-        <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="90" height="90" rx="26" fill="#FDF6EC"/>
-          <circle cx="36" cy="40" r="7" fill="#3B2314"/>
-          <circle cx="54" cy="40" r="7" fill="#3B2314"/>
-          <circle cx="33.5" cy="37.5" r="2.5" fill="white" opacity="0.4"/>
-          <circle cx="51.5" cy="37.5" r="2.5" fill="white" opacity="0.4"/>
-          <ellipse cx="45" cy="51" rx="5" ry="3.5" fill="#D4856B"/>
-        </svg>
+      <div class="hero-phone-showcase">
+        <img src="images/mya-sunset.jpg" alt="Mya the dog at sunset on coastal rocks" class="hero-pet-photo">
+        <div class="hero-device">
+          <div class="device-notch"></div>
+          <div class="device-screen">
+            <img src="images/screenshot-today.jpg" alt="Aww That Face app — Today screen showing Mya's daily photo with stuffed toy" loading="eager">
+          </div>
+        </div>
       </div>
 
       <div class="logo">
@@ -1063,13 +1084,9 @@
         <!-- Today -->
         <div>
           <div class="mockup-device">
+            <div class="device-notch"></div>
             <div class="mockup-screen">
-              <div class="mockup-screen-content screen-today">
-                <div class="screen-icon">🐾</div>
-                <div class="screen-label">Today</div>
-                <div class="screen-heading">Capture today's face</div>
-                <div class="screen-circle">📷</div>
-              </div>
+              <img src="images/screenshot-today.jpg" alt="Today screen — Mya's daily photo with her stuffed toy, ready to capture" loading="lazy">
             </div>
           </div>
           <p class="mockup-caption">Today</p>
@@ -1078,75 +1095,31 @@
         <!-- Gallery -->
         <div>
           <div class="mockup-device">
+            <div class="device-notch"></div>
             <div class="mockup-screen">
-              <div class="mockup-screen-content screen-gallery">
-                <div class="screen-label">Gallery</div>
-                <div class="gallery-grid">
-                  <div class="gallery-thumb"></div>
-                  <div class="gallery-thumb"></div>
-                  <div class="gallery-thumb"></div>
-                  <div class="gallery-thumb"></div>
-                  <div class="gallery-thumb"></div>
-                  <div class="gallery-thumb"></div>
-                  <div class="gallery-thumb"></div>
-                  <div class="gallery-thumb"></div>
-                  <div class="gallery-thumb"></div>
-                </div>
-              </div>
+              <img src="images/screenshot-gallery.jpg" alt="Gallery grid view — browse all of Mya's daily photos in a beautiful grid" loading="lazy">
             </div>
           </div>
           <p class="mockup-caption">Gallery</p>
         </div>
 
-        <!-- Collections -->
+        <!-- Favorites -->
         <div>
           <div class="mockup-device">
+            <div class="device-notch"></div>
             <div class="mockup-screen">
-              <div class="mockup-screen-content screen-collections">
-                <div class="screen-label">Collections</div>
-                <div class="collection-card">
-                  <div class="collection-bar"></div>
-                  <div class="collection-text">Sleepy faces</div>
-                </div>
-                <div class="collection-card">
-                  <div class="collection-bar"></div>
-                  <div class="collection-text">Goofy moments</div>
-                </div>
-                <div class="collection-card">
-                  <div class="collection-bar"></div>
-                  <div class="collection-text">Best of March</div>
-                </div>
-              </div>
+              <img src="images/screenshot-favorites.jpg" alt="Favorites collection — your most loved pet photos marked with hearts" loading="lazy">
             </div>
           </div>
-          <p class="mockup-caption">Collections</p>
+          <p class="mockup-caption">Favorites</p>
         </div>
 
         <!-- Create -->
         <div>
           <div class="mockup-device">
+            <div class="device-notch"></div>
             <div class="mockup-screen">
-              <div class="mockup-screen-content screen-create">
-                <div class="screen-label">Create</div>
-                <div class="create-buttons">
-                  <div class="create-btn">
-                    <span class="create-btn-icon">📖</span>
-                    <span class="create-btn-text">Photo Book</span>
-                  </div>
-                  <div class="create-btn">
-                    <span class="create-btn-icon">🖨️</span>
-                    <span class="create-btn-text">Order Prints</span>
-                  </div>
-                  <div class="create-btn">
-                    <span class="create-btn-icon">🎬</span>
-                    <span class="create-btn-text">Video Slideshow</span>
-                  </div>
-                  <div class="create-btn">
-                    <span class="create-btn-icon">🎁</span>
-                    <span class="create-btn-text">Gift a Book</span>
-                  </div>
-                </div>
-              </div>
+              <img src="images/screenshot-create.jpg" alt="Create screen — make photo books, slideshows, and prints from your collection" loading="lazy">
             </div>
           </div>
           <p class="mockup-caption">Create</p>
@@ -1157,7 +1130,10 @@
   </section>
 
   <!-- ===== SOCIAL PROOF ===== -->
-  <section class="social-proof">
+  <section class="social-proof pet-photo-accent">
+    <div class="pet-photo-bg">
+      <img src="images/mya-cozy.jpg" alt="" role="presentation" loading="lazy">
+    </div>
     <div class="section-inner fade-in">
       <p class="section-label">Not about loss — about love, right now</p>
       <p class="proof-quote">Join thousands of pet parents capturing daily moments with the faces they love most.</p>
@@ -1180,6 +1156,13 @@
       </div>
       <p class="proof-cta">Every face tells a story. Start yours today.</p>
       <div class="hashtag">#AwwThatFace</div>
+
+      <!-- Real pet photos strip -->
+      <div class="pet-gallery-strip">
+        <img src="images/mya-hat.jpg" alt="Mya wearing a cute floral sun hat with tongue out" class="pet-gallery-photo" loading="lazy">
+        <img src="images/mya-studio.jpg" alt="Mya in a beautiful studio-style portrait with rim lighting" class="pet-gallery-photo" loading="lazy">
+        <img src="images/mya-sunset.jpg" alt="Mya sitting on rocks at golden hour with the ocean behind her" class="pet-gallery-photo" loading="lazy">
+      </div>
     </div>
   </section>
 
@@ -1189,6 +1172,9 @@
       <p class="section-label">Ready?</p>
       <h2 class="section-title">Start Your Daily Ritual</h2>
       <p class="cta-subtitle">Download Aww… That Face and capture your pet's face every day. It's free, it's private, and it's all yours.</p>
+      <div style="margin-bottom: 2rem;">
+        <img src="images/mya-hat.jpg" alt="Mya the dog wearing a floral hat — the kind of moment Aww That Face captures" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid var(--soft-peach); box-shadow: 0 8px 30px rgba(59,35,20,0.12);" loading="lazy">
+      </div>
       <a href="#" class="app-store-btn" style="opacity:1;animation:none;">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
         Download on the App Store
