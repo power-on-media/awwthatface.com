@@ -1,0 +1,43 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FDF6EC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F5E1D0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="1050" cy="120" r="200" fill="#E8A87C" opacity="0.12"/>
+  <circle cx="150" cy="500" r="180" fill="#D4856B" opacity="0.1"/>
+  <circle cx="600" cy="600" r="250" fill="#F2C4C4" opacity="0.08"/>
+  
+  <!-- Pet face icon -->
+  <g transform="translate(540, 100)">
+    <rect width="120" height="120" rx="35" fill="#FDF6EC" stroke="#E8A87C" stroke-width="2"/>
+    <circle cx="48" cy="53" r="9.5" fill="#3B2314"/>
+    <circle cx="72" cy="53" r="9.5" fill="#3B2314"/>
+    <circle cx="45" cy="50" r="3.5" fill="white" opacity="0.4"/>
+    <circle cx="69" cy="50" r="3.5" fill="white" opacity="0.4"/>
+    <ellipse cx="60" cy="68" rx="6.5" ry="4.5" fill="#D4856B"/>
+  </g>
+  
+  <!-- "Aww..." text -->
+  <text x="600" y="290" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="42" fill="#E8A87C">Aww…</text>
+  
+  <!-- "That Face." text -->
+  <text x="600" y="370" text-anchor="middle" font-family="Georgia, serif" font-weight="800" font-size="80" fill="#2C2420">That <tspan fill="#D4856B" font-style="italic">Face.</tspan></text>
+  
+  <!-- Tagline -->
+  <text x="600" y="430" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="32" fill="#E8A87C">You know the one.</text>
+  
+  <!-- Description -->
+  <text x="600" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#6B4226">A daily photo ritual with your favorite face.</text>
+  <text x="600" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#6B4226">One photo of your pet, every day.</text>
+  
+  <!-- Bottom bar -->
+  <rect y="600" width="1200" height="30" fill="#3B2314"/>
+  <text x="600" y="622" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#F5E1D0">awwthatface.com</text>
+</svg>

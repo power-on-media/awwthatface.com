@@ -4,12 +4,41 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aww… That Face — A daily photo ritual with your favorite face</title>
-<meta name="description" content="One photo of your pet, every day. Turn daily moments into photo books, prints, and video slideshows. Coming soon to iOS.">
-<meta property="og:title" content="Aww… That Face — Coming Soon">
-<meta property="og:description" content="A daily photo ritual with your favorite face. One photo. Every day. All the love.">
+<meta name="description" content="One photo of your pet, every day. Aww… That Face is the iOS app that turns your daily pet moments into photo books, prints, and video slideshows. Download free on the App Store.">
+<link rel="canonical" href="https://awwthatface.com">
+<meta property="og:title" content="Aww… That Face — A daily photo ritual with your favorite face">
+<meta property="og:description" content="One photo of your pet, every day. Turn daily moments into photo books, prints, and video slideshows you'll love.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://awwthatface.com">
+<meta property="og:image" content="https://awwthatface.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Aww… That Face — A daily photo ritual with your favorite face">
+<meta name="twitter:description" content="One photo of your pet, every day. Turn daily moments into photo books, prints, and video slideshows.">
+<meta name="twitter:image" content="https://awwthatface.com/og-image.png">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Aww… That Face",
+  "operatingSystem": "iOS",
+  "applicationCategory": "PhotographyApplication",
+  "description": "A daily photo ritual with your favorite face. One photo of your pet, every day — then turn those moments into photo books, prints, and video slideshows.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "Power On Media Group"
+  }
+}
+</script>
+
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23FDF6EC'/><circle cx='42' cy='48' r='5' fill='%233B2314'/><circle cx='58' cy='48' r='5' fill='%233B2314'/><ellipse cx='50' cy='57' rx='3.5' ry='2.5' fill='%23D4856B'/></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -41,10 +70,7 @@
   /* ========== AMBIENT BACKGROUND ========== */
   .ambient {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     pointer-events: none;
     z-index: 0;
     overflow: hidden;
@@ -57,56 +83,34 @@
   }
 
   .orb-1 {
-    width: 600px;
-    height: 600px;
+    width: 600px; height: 600px;
     background: radial-gradient(circle, rgba(232,168,124,0.15) 0%, transparent 70%);
-    top: -10%;
-    right: -5%;
+    top: -10%; right: -5%;
     animation: drift1 20s ease-in-out infinite;
   }
 
   .orb-2 {
-    width: 500px;
-    height: 500px;
+    width: 500px; height: 500px;
     background: radial-gradient(circle, rgba(242,196,196,0.12) 0%, transparent 70%);
-    bottom: -5%;
-    left: -10%;
+    bottom: -5%; left: -10%;
     animation: drift2 25s ease-in-out infinite;
   }
 
   .orb-3 {
-    width: 400px;
-    height: 400px;
+    width: 400px; height: 400px;
     background: radial-gradient(circle, rgba(212,133,107,0.08) 0%, transparent 70%);
-    top: 40%;
-    left: 30%;
+    top: 40%; left: 30%;
     animation: drift3 18s ease-in-out infinite;
   }
 
-  @keyframes drift1 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(-40px, 30px) scale(1.05); }
-    66% { transform: translate(20px, -20px) scale(0.95); }
-  }
-
-  @keyframes drift2 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(30px, -40px) scale(1.08); }
-    66% { transform: translate(-20px, 20px) scale(0.97); }
-  }
-
-  @keyframes drift3 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(50px, -30px) scale(1.1); }
-  }
+  @keyframes drift1 { 0%, 100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-40px,30px) scale(1.05); } 66% { transform: translate(20px,-20px) scale(0.95); } }
+  @keyframes drift2 { 0%, 100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-40px) scale(1.08); } 66% { transform: translate(-20px,20px) scale(0.97); } }
+  @keyframes drift3 { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(50px,-30px) scale(1.1); } }
 
   /* ========== GRAIN TEXTURE ========== */
   .grain {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     pointer-events: none;
     z-index: 1;
     opacity: 0.03;
@@ -115,28 +119,38 @@
     background-size: 256px 256px;
   }
 
-  /* ========== MAIN CONTENT ========== */
+  /* ========== SECTIONS ========== */
   .page {
     position: relative;
     z-index: 2;
+  }
+
+  section {
+    padding: 5rem 2rem;
+  }
+
+  .section-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* ========== HERO ========== */
+  .hero {
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
     padding: 3rem 2rem;
   }
 
-  .content {
+  .hero-content {
     max-width: 620px;
-    width: 100%;
-    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  /* ========== PET FACE ICON ========== */
   .pet-face {
     margin-bottom: 3rem;
     opacity: 0;
@@ -144,11 +158,7 @@
   }
 
   .pet-face svg {
-    filter: drop-shadow(0 4px 20px rgba(59, 35, 20, 0.08));
-  }
-
-  /* Subtle idle animation — like a pet tilting its head */
-  .pet-face svg {
+    filter: drop-shadow(0 4px 20px rgba(59,35,20,0.08));
     animation: headTilt 6s ease-in-out 2s infinite;
   }
 
@@ -158,7 +168,6 @@
     75% { transform: rotate(3deg); }
   }
 
-  /* ========== LOGO ========== */
   .logo {
     margin-bottom: 1.5rem;
     opacity: 0;
@@ -176,7 +185,7 @@
     text-align: left;
   }
 
-  .logo-main {
+  h1 {
     font-family: 'Playfair Display', Georgia, serif;
     font-weight: 800;
     font-size: clamp(3.5rem, 9vw, 5.5rem);
@@ -184,12 +193,11 @@
     line-height: 1;
   }
 
-  .logo-main em {
+  h1 em {
     font-style: italic;
     color: var(--deep-terracotta);
   }
 
-  /* ========== TAGLINE ========== */
   .tagline {
     font-family: 'Caveat', cursive;
     font-weight: 500;
@@ -200,51 +208,57 @@
     animation: softAppear 1.2s ease 0.6s forwards;
   }
 
-  /* ========== DESCRIPTION ========== */
   .description {
     font-family: 'DM Sans', sans-serif;
     font-size: clamp(1rem, 2.5vw, 1.15rem);
     color: var(--warm-brown);
     line-height: 1.8;
     max-width: 480px;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
     opacity: 0;
     animation: softAppear 1.2s ease 0.8s forwards;
   }
 
-  /* ========== COMING SOON BADGE ========== */
-  .coming-soon {
+  /* ========== APP STORE BUTTON ========== */
+  .app-store-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    background: var(--rich-espresso);
+    color: var(--warm-cream);
+    text-decoration: none;
+    padding: 0.85rem 2rem;
+    border-radius: 14px;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.75rem;
+    font-size: 1rem;
     font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--deep-terracotta);
-    background: var(--soft-peach);
-    padding: 0.6rem 1.5rem;
-    border-radius: 100px;
-    margin-bottom: 2.5rem;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
     opacity: 0;
     animation: softAppear 1.2s ease 1s forwards;
   }
 
-  .coming-soon .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--deep-terracotta);
-    animation: pulse 2s ease-in-out infinite;
+  .app-store-btn:hover {
+    background: var(--charcoal);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(59,35,20,0.25);
   }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.8); }
+  .app-store-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
   }
 
-  /* ========== EMAIL FORM ========== */
+  .app-store-sub {
+    font-size: 0.8rem;
+    color: var(--warm-gray);
+    opacity: 0;
+    animation: softAppear 1.2s ease 1.1s forwards;
+    margin-bottom: 2rem;
+  }
+
+  /* ========== EMAIL FORM (kept for continued signups) ========== */
   .email-section {
     width: 100%;
     max-width: 440px;
@@ -279,13 +293,11 @@
     transition: all 0.3s ease;
   }
 
-  .email-input::placeholder {
-    color: var(--warm-gray);
-  }
+  .email-input::placeholder { color: var(--warm-gray); }
 
   .email-input:focus {
     border-color: var(--golden-amber);
-    box-shadow: 0 0 0 3px rgba(232, 168, 124, 0.15);
+    box-shadow: 0 0 0 3px rgba(232,168,124,0.15);
   }
 
   .email-button {
@@ -306,14 +318,9 @@
     background: var(--deep-terracotta);
     color: var(--warm-cream);
     transform: translateY(-1px);
-    box-shadow: 0 4px 20px rgba(212, 133, 107, 0.3);
+    box-shadow: 0 4px 20px rgba(212,133,107,0.3);
   }
 
-  .email-button:active {
-    transform: translateY(0);
-  }
-
-  /* Success state */
   .email-success {
     display: none;
     font-family: 'Caveat', cursive;
@@ -327,11 +334,11 @@
   .email-section.submitted .email-label { display: none; }
   .email-section.submitted .email-success { display: block; }
 
-  /* ========== FEATURES PREVIEW ========== */
+  /* ========== FEATURES ROW ========== */
   .features {
     display: flex;
     gap: 2rem;
-    margin-top: 4rem;
+    margin-top: 3rem;
     flex-wrap: wrap;
     justify-content: center;
     opacity: 0;
@@ -347,8 +354,7 @@
   }
 
   .feature-icon {
-    width: 48px;
-    height: 48px;
+    width: 48px; height: 48px;
     border-radius: 14px;
     background: var(--warm-cream);
     display: flex;
@@ -370,22 +376,378 @@
     letter-spacing: 0.03em;
   }
 
+  /* ========== HOW IT WORKS ========== */
+  .how-it-works {
+    background: var(--warm-cream);
+    text-align: center;
+  }
+
+  .section-label {
+    font-family: 'Caveat', cursive;
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: var(--golden-amber);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--charcoal);
+    margin-bottom: 3.5rem;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .step-number {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--golden-amber);
+    color: var(--rich-espresso);
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .step-emoji {
+    font-size: 2.2rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--charcoal);
+  }
+
+  .step-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--warm-brown);
+    line-height: 1.7;
+    max-width: 220px;
+  }
+
+  /* ========== APP PREVIEW / MOCKUPS ========== */
+  .app-preview {
+    text-align: center;
+    background: var(--off-white);
+  }
+
+  .mockup-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    max-width: 840px;
+    margin: 0 auto;
+  }
+
+  .mockup-device {
+    position: relative;
+    border-radius: 28px;
+    background: var(--charcoal);
+    padding: 12px;
+    box-shadow: 0 20px 60px rgba(59,35,20,0.12), 0 4px 16px rgba(59,35,20,0.08);
+    transition: transform 0.4s ease;
+  }
+
+  .mockup-device:hover {
+    transform: translateY(-6px);
+  }
+
+  .mockup-screen {
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 9/19.5;
+    position: relative;
+  }
+
+  .mockup-screen-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 1rem;
+    text-align: center;
+  }
+
+  /* Today screen */
+  .screen-today {
+    background: linear-gradient(180deg, var(--warm-cream) 0%, var(--soft-peach) 100%);
+  }
+
+  .screen-today .screen-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+  .screen-today .screen-label {
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    color: var(--golden-amber);
+    margin-bottom: 0.25rem;
+  }
+  .screen-today .screen-heading {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--charcoal);
+    margin-bottom: 0.75rem;
+  }
+  .screen-today .screen-circle {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    border: 3px solid var(--golden-amber);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--golden-amber);
+    margin-top: 0.5rem;
+  }
+
+  /* Gallery screen */
+  .screen-gallery {
+    background: var(--warm-cream);
+  }
+
+  .screen-gallery .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .gallery-thumb {
+    aspect-ratio: 1;
+    border-radius: 6px;
+  }
+
+  .gallery-thumb:nth-child(1) { background: var(--soft-peach); }
+  .gallery-thumb:nth-child(2) { background: var(--golden-amber); }
+  .gallery-thumb:nth-child(3) { background: var(--deep-terracotta); }
+  .gallery-thumb:nth-child(4) { background: var(--deep-terracotta); }
+  .gallery-thumb:nth-child(5) { background: var(--soft-peach); }
+  .gallery-thumb:nth-child(6) { background: var(--golden-amber); }
+  .gallery-thumb:nth-child(7) { background: var(--golden-amber); }
+  .gallery-thumb:nth-child(8) { background: var(--deep-terracotta); }
+  .gallery-thumb:nth-child(9) { background: var(--soft-peach); }
+
+  .screen-gallery .screen-label {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Collections screen */
+  .screen-collections {
+    background: linear-gradient(180deg, var(--off-white) 0%, var(--warm-cream) 100%);
+  }
+
+  .collection-card {
+    width: 85%;
+    background: white;
+    border-radius: 12px;
+    padding: 0.6rem;
+    margin-bottom: 0.4rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .collection-bar {
+    height: 8px;
+    border-radius: 4px;
+    margin-bottom: 0.35rem;
+  }
+
+  .collection-card:nth-child(2) .collection-bar { background: var(--golden-amber); width: 80%; }
+  .collection-card:nth-child(3) .collection-bar { background: var(--deep-terracotta); width: 65%; }
+  .collection-card:nth-child(4) .collection-bar { background: var(--soft-peach); width: 90%; }
+
+  .collection-card .collection-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.55rem;
+    color: var(--warm-gray);
+    text-align: left;
+  }
+
+  .screen-collections .screen-label {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Create screen */
+  .screen-create {
+    background: linear-gradient(180deg, var(--soft-peach) 0%, var(--warm-cream) 100%);
+  }
+
+  .create-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 85%;
+  }
+
+  .create-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: white;
+    border-radius: 10px;
+    padding: 0.55rem 0.7rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .create-btn-icon {
+    font-size: 0.9rem;
+  }
+
+  .create-btn-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: var(--charcoal);
+  }
+
+  .screen-create .screen-label {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+  }
+
+  .mockup-caption {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--warm-gray);
+    margin-top: 0.75rem;
+    text-align: center;
+  }
+
+  /* ========== SOCIAL PROOF ========== */
+  .social-proof {
+    text-align: center;
+    background: var(--warm-cream);
+  }
+
+  .proof-quote {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    color: var(--charcoal);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.5;
+  }
+
+  .proof-stats {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .stat-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-value {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--charcoal);
+  }
+
+  .stat-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--warm-gray);
+  }
+
+  .proof-cta {
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: var(--deep-terracotta);
+  }
+
+  .hashtag {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--golden-amber);
+    background: rgba(232,168,124,0.15);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    display: inline-block;
+    margin-top: 1.5rem;
+  }
+
+  /* ========== CTA SECTION ========== */
+  .cta-section {
+    text-align: center;
+    background: var(--off-white);
+    padding: 5rem 2rem 3rem;
+  }
+
+  .cta-section .section-title {
+    margin-bottom: 1rem;
+  }
+
+  .cta-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    color: var(--warm-brown);
+    line-height: 1.7;
+    max-width: 460px;
+    margin: 0 auto 2.5rem;
+  }
+
   /* ========== SOCIAL LINKS ========== */
   .social-section {
     display: flex;
     align-items: center;
     gap: 1.25rem;
-    margin-top: 3rem;
-    opacity: 0;
-    animation: softAppear 1.2s ease 1.5s forwards;
+    justify-content: center;
+    margin-top: 2rem;
   }
 
   .social-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: 44px; height: 44px;
     border-radius: 12px;
     background: var(--warm-cream);
     border: 1.5px solid var(--soft-peach);
@@ -395,8 +757,7 @@
   }
 
   .social-link svg {
-    width: 20px;
-    height: 20px;
+    width: 20px; height: 20px;
     fill: currentColor;
   }
 
@@ -405,47 +766,150 @@
     border-color: var(--golden-amber);
     color: var(--rich-espresso);
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(232, 168, 124, 0.3);
+    box-shadow: 0 4px 16px rgba(232,168,124,0.3);
   }
 
   /* ========== FOOTER ========== */
   .footer {
-    margin-top: 3rem;
+    background: var(--rich-espresso);
+    color: var(--soft-peach);
+    padding: 3rem 2rem;
     text-align: center;
-    opacity: 0;
-    animation: softAppear 1.2s ease 1.6s forwards;
   }
 
-  .footer-text {
+  .footer-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .footer-logo {
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-logo .logo-awe {
+    font-size: 1.2rem;
+    color: var(--golden-amber);
+  }
+
+  .footer-logo .logo-main {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: var(--warm-cream);
+  }
+
+  .footer-logo .logo-main em {
+    color: var(--golden-amber);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-links a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--soft-peach);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--golden-amber);
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.08);
+    color: var(--soft-peach);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .footer-social a:hover {
+    background: var(--golden-amber);
+    color: var(--rich-espresso);
+  }
+
+  .footer-social svg {
+    width: 18px; height: 18px;
+    fill: currentColor;
+  }
+
+  .footer-contact {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--warm-gray);
+    margin-bottom: 1rem;
+  }
+
+  .footer-contact a {
+    color: var(--golden-amber);
+    text-decoration: none;
+  }
+
+  .footer-contact a:hover {
+    text-decoration: underline;
+  }
+
+  .footer-copy {
     font-family: 'DM Sans', sans-serif;
     font-size: 0.8rem;
     color: var(--warm-gray);
     letter-spacing: 0.05em;
   }
 
-  .footer-text a {
-    color: var(--golden-amber);
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .footer-text a:hover {
-    color: var(--deep-terracotta);
-  }
-
   /* ========== ANIMATIONS ========== */
   @keyframes softAppear {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scroll-triggered fade-in */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* ========== RESPONSIVE ========== */
+  @media (max-width: 768px) {
+    .steps {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .mockup-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      max-width: 400px;
+    }
+
+    .proof-stats {
+      gap: 2rem;
+    }
+  }
+
   @media (max-width: 520px) {
     .email-form {
       flex-direction: column;
@@ -460,8 +924,26 @@
       gap: 1.5rem;
     }
 
-    .page {
+    section {
+      padding: 3.5rem 1.5rem;
+    }
+
+    .hero {
       padding: 2rem 1.5rem;
+    }
+
+    .mockup-grid {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 320px;
+    }
+
+    .mockup-device {
+      padding: 8px;
+      border-radius: 20px;
+    }
+
+    .mockup-screen {
+      border-radius: 14px;
     }
   }
 </style>
@@ -474,118 +956,291 @@
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
 </div>
-
-<!-- Grain texture -->
 <div class="grain"></div>
 
-<!-- Page content -->
 <div class="page">
-  <div class="content">
 
-    <!-- Pet face icon -->
-    <div class="pet-face">
-      <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="90" height="90" rx="26" fill="#FDF6EC"/>
-        <circle cx="36" cy="40" r="7" fill="#3B2314"/>
-        <circle cx="54" cy="40" r="7" fill="#3B2314"/>
-        <circle cx="33.5" cy="37.5" r="2.5" fill="white" opacity="0.4"/>
-        <circle cx="51.5" cy="37.5" r="2.5" fill="white" opacity="0.4"/>
-        <ellipse cx="45" cy="51" rx="5" ry="3.5" fill="#D4856B"/>
-      </svg>
-    </div>
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-content">
 
-    <!-- Logo -->
-    <div class="logo">
-      <span class="logo-awe">Aww…</span>
-      <div class="logo-main">That <em>Face.</em></div>
-    </div>
-
-    <!-- Tagline -->
-    <div class="tagline">You know the one.</div>
-
-    <!-- Description -->
-    <p class="description">
-      A daily photo ritual with your favorite face. One photo of your pet, every day — then watch those moments become photo books, prints, and video slideshows you'll love.
-    </p>
-
-    <!-- Coming soon badge -->
-    <div class="coming-soon">
-      <span class="dot"></span>
-      Coming Soon to iOS
-    </div>
-
-    <!-- Email signup -->
-    <div class="email-section" id="emailSection">
-      <label class="email-label">Get notified when we launch:</label>
-      <div class="email-form" id="emailForm">
-        <input
-          type="email"
-          class="email-input"
-          id="emailInput"
-          placeholder="your@email.com"
-          required
-          autocomplete="email"
-        >
-        <button class="email-button" id="emailButton" onclick="handleSubmit()">Notify Me</button>
-      </div>
-      <div class="email-success">
-        🧡 You're on the list! We'll let you know when it's time.
-      </div>
-    </div>
-
-    <!-- Features preview -->
-    <div class="features">
-      <div class="feature">
-        <div class="feature-icon">📸</div>
-        <span class="feature-text">Daily Photos</span>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">📖</div>
-        <span class="feature-text">Photo Books</span>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">🖨️</div>
-        <span class="feature-text">Prints</span>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">🎬</div>
-        <span class="feature-text">Video Slideshows</span>
-      </div>
-    </div>
-
-    <!-- Social links -->
-    <div class="social-section">
-      <!-- Instagram -->
-      <a href="https://instagram.com/awwthatface" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      <div class="pet-face">
+        <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="90" height="90" rx="26" fill="#FDF6EC"/>
+          <circle cx="36" cy="40" r="7" fill="#3B2314"/>
+          <circle cx="54" cy="40" r="7" fill="#3B2314"/>
+          <circle cx="33.5" cy="37.5" r="2.5" fill="white" opacity="0.4"/>
+          <circle cx="51.5" cy="37.5" r="2.5" fill="white" opacity="0.4"/>
+          <ellipse cx="45" cy="51" rx="5" ry="3.5" fill="#D4856B"/>
         </svg>
-      </a>
-      <!-- TikTok -->
-      <a href="https://tiktok.com/@awwthat.face" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/>
-        </svg>
-      </a>
-      <!-- X / Twitter -->
-      <a href="https://x.com/awwthatface" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (Twitter)">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-        </svg>
-      </a>
-    </div>
+      </div>
 
-    <!-- Footer -->
-    <div class="footer">
-      <p class="footer-text">
-        Made with 🧡 for pet lovers everywhere
+      <div class="logo">
+        <span class="logo-awe">Aww…</span>
+        <h1>That <em>Face.</em></h1>
+      </div>
+
+      <div class="tagline">You know the one.</div>
+
+      <p class="description">
+        A daily photo ritual with your favorite face. One photo of your pet, every day — then watch those moments become photo books, prints, and video slideshows you'll love.
       </p>
-    </div>
 
-  </div>
+      <!-- App Store button -->
+      <a href="#" class="app-store-btn" id="appStoreBtn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on the App Store
+      </a>
+      <p class="app-store-sub">Free · iOS 17+</p>
+
+      <!-- Email signup (keep for continued growth) -->
+      <div class="email-section" id="emailSection">
+        <label class="email-label">Get updates & tips for pet parents:</label>
+        <div class="email-form" id="emailForm">
+          <input type="email" class="email-input" id="emailInput" placeholder="your@email.com" required autocomplete="email">
+          <button class="email-button" id="emailButton" onclick="handleSubmit()">Join Us</button>
+        </div>
+        <div class="email-success">🧡 You're in! Welcome to the family.</div>
+      </div>
+
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">📸</div>
+          <span class="feature-text">Daily Photos</span>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📖</div>
+          <span class="feature-text">Photo Books</span>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🖨️</div>
+          <span class="feature-text">Prints</span>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🎬</div>
+          <span class="feature-text">Slideshows</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section class="how-it-works">
+    <div class="section-inner fade-in">
+      <p class="section-label">Simple as it sounds</p>
+      <h2 class="section-title">How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-emoji">📷</div>
+          <div class="step-number">1</div>
+          <h3 class="step-title">Take One Photo Today</h3>
+          <p class="step-desc">Open the app. Snap your pet's face. That's it — your daily ritual in seconds.</p>
+        </div>
+        <div class="step">
+          <div class="step-emoji">📅</div>
+          <div class="step-number">2</div>
+          <h3 class="step-title">Watch Your Timeline Grow</h3>
+          <p class="step-desc">Day by day, your gallery fills with every expression, every mood, every look.</p>
+        </div>
+        <div class="step">
+          <div class="step-emoji">🎁</div>
+          <div class="step-number">3</div>
+          <h3 class="step-title">Turn Moments Into Keepsakes</h3>
+          <p class="step-desc">Create photo books, order prints, and build video slideshows from your collection.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== APP PREVIEW ===== -->
+  <section class="app-preview">
+    <div class="section-inner fade-in">
+      <p class="section-label">Peek inside</p>
+      <h2 class="section-title">Designed for Pet Parents</h2>
+      <div class="mockup-grid">
+
+        <!-- Today -->
+        <div>
+          <div class="mockup-device">
+            <div class="mockup-screen">
+              <div class="mockup-screen-content screen-today">
+                <div class="screen-icon">🐾</div>
+                <div class="screen-label">Today</div>
+                <div class="screen-heading">Capture today's face</div>
+                <div class="screen-circle">📷</div>
+              </div>
+            </div>
+          </div>
+          <p class="mockup-caption">Today</p>
+        </div>
+
+        <!-- Gallery -->
+        <div>
+          <div class="mockup-device">
+            <div class="mockup-screen">
+              <div class="mockup-screen-content screen-gallery">
+                <div class="screen-label">Gallery</div>
+                <div class="gallery-grid">
+                  <div class="gallery-thumb"></div>
+                  <div class="gallery-thumb"></div>
+                  <div class="gallery-thumb"></div>
+                  <div class="gallery-thumb"></div>
+                  <div class="gallery-thumb"></div>
+                  <div class="gallery-thumb"></div>
+                  <div class="gallery-thumb"></div>
+                  <div class="gallery-thumb"></div>
+                  <div class="gallery-thumb"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="mockup-caption">Gallery</p>
+        </div>
+
+        <!-- Collections -->
+        <div>
+          <div class="mockup-device">
+            <div class="mockup-screen">
+              <div class="mockup-screen-content screen-collections">
+                <div class="screen-label">Collections</div>
+                <div class="collection-card">
+                  <div class="collection-bar"></div>
+                  <div class="collection-text">Sleepy faces</div>
+                </div>
+                <div class="collection-card">
+                  <div class="collection-bar"></div>
+                  <div class="collection-text">Goofy moments</div>
+                </div>
+                <div class="collection-card">
+                  <div class="collection-bar"></div>
+                  <div class="collection-text">Best of March</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="mockup-caption">Collections</p>
+        </div>
+
+        <!-- Create -->
+        <div>
+          <div class="mockup-device">
+            <div class="mockup-screen">
+              <div class="mockup-screen-content screen-create">
+                <div class="screen-label">Create</div>
+                <div class="create-buttons">
+                  <div class="create-btn">
+                    <span class="create-btn-icon">📖</span>
+                    <span class="create-btn-text">Photo Book</span>
+                  </div>
+                  <div class="create-btn">
+                    <span class="create-btn-icon">🖨️</span>
+                    <span class="create-btn-text">Order Prints</span>
+                  </div>
+                  <div class="create-btn">
+                    <span class="create-btn-icon">🎬</span>
+                    <span class="create-btn-text">Video Slideshow</span>
+                  </div>
+                  <div class="create-btn">
+                    <span class="create-btn-icon">🎁</span>
+                    <span class="create-btn-text">Gift a Book</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="mockup-caption">Create</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SOCIAL PROOF ===== -->
+  <section class="social-proof">
+    <div class="section-inner fade-in">
+      <p class="section-label">Not about loss — about love, right now</p>
+      <p class="proof-quote">Join thousands of pet parents capturing daily moments with the faces they love most.</p>
+      <div class="proof-stats">
+        <div class="stat">
+          <div class="stat-icon">📸</div>
+          <div class="stat-value">1 photo</div>
+          <div class="stat-label">per day is all it takes</div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon">🧡</div>
+          <div class="stat-value">365</div>
+          <div class="stat-label">faces in a year</div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon">📖</div>
+          <div class="stat-value">∞</div>
+          <div class="stat-label">memories to keep</div>
+        </div>
+      </div>
+      <p class="proof-cta">Every face tells a story. Start yours today.</p>
+      <div class="hashtag">#AwwThatFace</div>
+    </div>
+  </section>
+
+  <!-- ===== FINAL CTA ===== -->
+  <section class="cta-section">
+    <div class="section-inner fade-in">
+      <p class="section-label">Ready?</p>
+      <h2 class="section-title">Start Your Daily Ritual</h2>
+      <p class="cta-subtitle">Download Aww… That Face and capture your pet's face every day. It's free, it's private, and it's all yours.</p>
+      <a href="#" class="app-store-btn" style="opacity:1;animation:none;">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on the App Store
+      </a>
+
+      <div class="social-section">
+        <a href="https://instagram.com/awwthatface" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="https://tiktok.com/@awwthat.face" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+        </a>
+        <a href="https://x.com/awwthatface" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (Twitter)">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-awe">Aww…</span>
+        <div class="logo-main">That <em>Face.</em></div>
+      </div>
+      <div class="footer-links">
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="mailto:hello@awwthatface.com">Contact</a>
+        <a href="/support">Support</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://instagram.com/awwthatface" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="https://tiktok.com/@awwthat.face" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+        </a>
+        <a href="https://x.com/awwthatface" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+      <p class="footer-contact">Questions? <a href="mailto:hello@awwthatface.com">hello@awwthatface.com</a></p>
+      <p class="footer-copy">© 2025 Power On Media Group. All rights reserved. Made with 🧡 for pet lovers everywhere.</p>
+    </div>
+  </footer>
+
 </div>
 
 <script>
+// Email signup
 function handleSubmit() {
   const input = document.getElementById('emailInput');
   const section = document.getElementById('emailSection');
@@ -598,11 +1253,9 @@ function handleSubmit() {
     return;
   }
 
-  // Disable button while submitting
   button.textContent = 'Sending…';
   button.disabled = true;
 
-  // Submit to Google Forms
   const formId = '1FAIpQLSdEEnpm6MeBN1v-N4edpBCShOg0l-G4UfeFvRXQmxpAHS3UaA';
   const entryId = 'entry.912151270';
   const url = `https://docs.google.com/forms/d/e/${formId}/formResponse`;
@@ -615,18 +1268,24 @@ function handleSubmit() {
   }).then(() => {
     section.classList.add('submitted');
   }).catch(() => {
-    // no-cors mode always lands here, but the submission still works
     section.classList.add('submitted');
   });
 }
 
-// Allow Enter key to submit
 document.getElementById('emailInput').addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    handleSubmit();
-  }
+  if (e.key === 'Enter') { e.preventDefault(); handleSubmit(); }
 });
+
+// Scroll-triggered animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 
 </body>
