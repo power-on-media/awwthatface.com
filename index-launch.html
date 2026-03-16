@@ -571,10 +571,23 @@
       aspect-ratio: 1;
       border-radius: 4px;
       background: var(--soft-peach);
-      opacity: 0.25;
+      opacity: 0.15;
+      transform: scale(0.8);
+      transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                  transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  background-color 0.3s ease;
     }
     .mosaic-cell.active {
       opacity: 1;
+      transform: scale(1);
+    }
+    .mosaic-cell.animating {
+      opacity: 0.15;
+      transform: scale(0.8);
+    }
+    .mosaic-cell.animating.pop {
+      opacity: 1;
+      transform: scale(1);
     }
     .mosaic-cell.c1 { background: var(--golden-amber); }
     .mosaic-cell.c2 { background: var(--deep-terracotta); }
@@ -1112,7 +1125,7 @@
   <section class="social-proof" id="proof">
     <div class="container">
       <p class="section-label fade-in">By The Numbers</p>
-      <h2 class="section-headline fade-in">Built for the 65 million dog owners<br>and 47 million cat owners in America.</h2>
+      <h2 class="section-headline fade-in">Built for the 900 million dog owners<br>and 600 million cat owners worldwide.</h2>
       <div style="margin: 40px auto 32px; max-width: 480px; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 32px rgba(59,35,20,0.10);">
         <img src="images/dog-cat-together.jpg" alt="A dog and cat lying together — Aww That Face is for all pet parents" style="width:100%; display:block;" loading="lazy">
       </div>
@@ -1281,6 +1294,67 @@
         }
       }, { threshold: 0.3 });
       obs.observe(grid);
+    })();
+
+    /* ── Payoff Mosaic Animation ── */
+    (function() {
+      var payoffSection = document.getElementById('payoff');
+      if (!payoffSection) return;
+      var grids = payoffSection.querySelectorAll('.mosaic-grid');
+      var animated = false;
+
+      function animatePayoff() {
+        if (animated) return;
+        animated = true;
+
+        // First: reset all cells to hidden
+        grids.forEach(function(grid) {
+          var cells = grid.querySelectorAll('.mosaic-cell');
+          cells.forEach(function(c) {
+            c.classList.remove('active');
+            c.classList.add('animating');
+          });
+        });
+
+        // Animate Day 1 (1 cell pops in)
+        var day1Cells = grids[0].querySelectorAll('.mosaic-cell');
+        setTimeout(function() {
+          day1Cells[0].classList.add('pop');
+        }, 400);
+
+        // Animate Day 30 (cells pop in one by one, staggered)
+        var day30Cells = grids[1].querySelectorAll('.mosaic-cell');
+        var day30Active = [];
+        day30Cells.forEach(function(c, i) {
+          if (c.classList.contains('c1') || c.classList.contains('c2') || c.classList.contains('c3') || 
+              c.classList.contains('c4') || c.classList.contains('c5') || c.classList.contains('c6') || 
+              c.classList.contains('c7')) {
+            day30Active.push({ el: c, idx: i });
+          }
+        });
+        day30Active.forEach(function(item, i) {
+          setTimeout(function() {
+            item.el.classList.add('pop');
+          }, 1200 + (i * 80));
+        });
+
+        // Animate Day 365 (cells cascade in rapidly)
+        var day365Cells = grids[2].querySelectorAll('.mosaic-cell');
+        var delay365Start = 1200 + (day30Active.length * 80) + 400;
+        day365Cells.forEach(function(c, i) {
+          setTimeout(function() {
+            c.classList.add('pop');
+          }, delay365Start + (i * 30));
+        });
+      }
+
+      var obs = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          animatePayoff();
+          obs.unobserve(payoffSection);
+        }
+      }, { threshold: 0.25 });
+      obs.observe(payoffSection);
     })();
 
     /* ── FAQ Accordion ── */
