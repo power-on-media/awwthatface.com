@@ -7,10 +7,22 @@
   <meta name="description" content="A daily photo ritual for the face you love. Capture one photo of your pet every day and watch those moments become something beautiful.">
   <meta property="og:title" content="Aww… That Face — You know the one.">
   <meta property="og:description" content="One photo of your pet, every day. Watch those moments become something beautiful.">
-  <meta property="og:image" content="images/mya-sunset.jpg">
+  <meta property="og:image" content="https://www.awwthatface.com/images/mya-sunset.jpg">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="apple-itunes-app" content="app-id=XXXXXXXXX">
+  <link rel="canonical" href="https://www.awwthatface.com/">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Power On Media Group">
+  <meta name="language" content="English">
+  <meta property="og:url" content="https://www.awwthatface.com/">
+  <meta property="og:site_name" content="Aww… That Face">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:title" content="Aww… That Face — You know the one.">
+  <meta name="twitter:description" content="One photo of your pet, every day. Watch those moments become something beautiful.">
+  <meta name="twitter:image" content="https://www.awwthatface.com/images/mya-sunset.jpg">
+  <link rel="alternate" hreflang="en" href="https://www.awwthatface.com/">
+  <link rel="alternate" hreflang="x-default" href="https://www.awwthatface.com/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
@@ -856,10 +868,10 @@
       <img src="images/mya-sunset.jpg" alt="Golden retriever Mya bathed in warm golden hour light" width="1600" height="1000">
     </div>
     <div class="hero-content">
-      <div class="hero-logo fade-in">
+      <h1 class="hero-logo fade-in" style="margin:0;">
         <span class="aww">Aww…</span>
         <span class="that-face">That <em>Face.</em></span>
-      </div>
+      </h1>
       <p class="hero-tagline fade-in fade-in-delay-1">You know the one.</p>
       <p class="hero-subheadline fade-in fade-in-delay-2">One photo of your pet, every day.<br>Watch those moments become something beautiful.</p>
       <div class="fade-in fade-in-delay-3">
@@ -871,6 +883,16 @@
           </div>
         </a>
         <p class="btn-subtext">Free · iOS 17+</p>
+      </div>
+
+      <!-- Email signup while waiting for App Store -->
+      <div class="fade-in fade-in-delay-4" id="emailSection" style="margin-top: 24px; max-width: 420px; width: 100%;">
+        <label style="font-family: var(--body); font-size: 14px; color: rgba(255,255,255,0.7); display: block; margin-bottom: 10px;">Get notified when we launch + tips for pet parents:</label>
+        <div id="emailForm" style="display: flex; gap: 8px;">
+          <input type="email" id="emailInput" placeholder="your@email.com" required autocomplete="email" style="flex:1; font-family: var(--body); font-size: 15px; padding: 12px 16px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: #fff; backdrop-filter: blur(10px); outline: none;">
+          <button id="emailButton" onclick="handleSubmit()" style="font-family: var(--body); font-size: 14px; font-weight: 600; padding: 12px 20px; border-radius: 12px; border: none; background: var(--golden-amber); color: var(--rich-espresso); cursor: pointer; white-space: nowrap;">Join Us</button>
+        </div>
+        <div class="email-success" style="display: none; font-family: var(--handwritten); font-size: 1.3rem; color: var(--sage-green); padding: 12px 0;">🧡 You're in! Welcome to the family.</div>
       </div>
     </div>
     <div class="scroll-indicator" aria-hidden="true">
@@ -1356,6 +1378,41 @@
       }, { threshold: 0.25 });
       obs.observe(payoffSection);
     })();
+
+    /* ── Email Signup (Google Forms) ── */
+    function handleSubmit() {
+      var input = document.getElementById('emailInput');
+      var section = document.getElementById('emailSection');
+      var button = document.getElementById('emailButton');
+      var email = input.value.trim();
+      if (!email || !email.includes('@') || !email.includes('.')) {
+        input.style.borderColor = '#D4856B';
+        input.focus();
+        return;
+      }
+      button.textContent = 'Sending…';
+      button.disabled = true;
+      var formId = '1FAIpQLSdEEnpm6MeBN1v-N4edpBCShOg0l-G4UfeFvRXQmxpAHS3UaA';
+      var entryId = 'entry.912151270';
+      var url = 'https://docs.google.com/forms/d/e/' + formId + '/formResponse';
+      fetch(url, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: entryId + '=' + encodeURIComponent(email)
+      }).then(function() {
+        document.getElementById('emailForm').style.display = 'none';
+        section.querySelector('label').style.display = 'none';
+        section.querySelector('.email-success').style.display = 'block';
+      }).catch(function() {
+        document.getElementById('emailForm').style.display = 'none';
+        section.querySelector('label').style.display = 'none';
+        section.querySelector('.email-success').style.display = 'block';
+      });
+    }
+    document.getElementById('emailInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); handleSubmit(); }
+    });
 
     /* ── FAQ Accordion ── */
     (function() {

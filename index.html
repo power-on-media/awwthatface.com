@@ -1,1278 +1,1438 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aww… That Face — A daily photo ritual with your favorite face</title>
-<meta name="description" content="One photo of your pet, every day. Aww… That Face is the iOS app that turns your daily pet moments into photo books, prints, and video slideshows. Download free on the App Store.">
-<link rel="canonical" href="https://awwthatface.com">
-<meta property="og:title" content="Aww… That Face — A daily photo ritual with your favorite face">
-<meta property="og:description" content="One photo of your pet, every day. Turn daily moments into photo books, prints, and video slideshows you'll love.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://awwthatface.com">
-<meta property="og:image" content="https://awwthatface.com/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Aww… That Face — A daily photo ritual with your favorite face">
-<meta name="twitter:description" content="One photo of your pet, every day. Turn daily moments into photo books, prints, and video slideshows.">
-<meta name="twitter:image" content="https://awwthatface.com/og-image.png">
-
-<!-- Structured Data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Aww… That Face",
-  "operatingSystem": "iOS",
-  "applicationCategory": "PhotographyApplication",
-  "description": "A daily photo ritual with your favorite face. One photo of your pet, every day — then turn those moments into photo books, prints, and video slideshows.",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "author": {
-    "@type": "Organization",
-    "name": "Power On Media Group"
-  }
-}
-</script>
-
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23FDF6EC'/><circle cx='42' cy='48' r='5' fill='%233B2314'/><circle cx='58' cy='48' r='5' fill='%233B2314'/><ellipse cx='50' cy='57' rx='3.5' ry='2.5' fill='%23D4856B'/></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --warm-cream: #FDF6EC;
-    --soft-peach: #F5E1D0;
-    --golden-amber: #E8A87C;
-    --deep-terracotta: #D4856B;
-    --warm-brown: #6B4226;
-    --rich-espresso: #3B2314;
-    --blush-pink: #F2C4C4;
-    --sage-green: #A8B5A2;
-    --off-white: #FEFCF9;
-    --warm-gray: #A89B8C;
-    --charcoal: #2C2420;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', -apple-system, sans-serif;
-    background: var(--off-white);
-    color: var(--charcoal);
-    overflow-x: hidden;
-    min-height: 100vh;
-  }
-
-  /* ========== AMBIENT BACKGROUND ========== */
-  .ambient {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
-
-  .ambient .orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-  }
-
-  .orb-1 {
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(232,168,124,0.15) 0%, transparent 70%);
-    top: -10%; right: -5%;
-    animation: drift1 20s ease-in-out infinite;
-  }
-
-  .orb-2 {
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(242,196,196,0.12) 0%, transparent 70%);
-    bottom: -5%; left: -10%;
-    animation: drift2 25s ease-in-out infinite;
-  }
-
-  .orb-3 {
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(212,133,107,0.08) 0%, transparent 70%);
-    top: 40%; left: 30%;
-    animation: drift3 18s ease-in-out infinite;
-  }
-
-  @keyframes drift1 { 0%, 100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-40px,30px) scale(1.05); } 66% { transform: translate(20px,-20px) scale(0.95); } }
-  @keyframes drift2 { 0%, 100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-40px) scale(1.08); } 66% { transform: translate(-20px,20px) scale(0.97); } }
-  @keyframes drift3 { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(50px,-30px) scale(1.1); } }
-
-  /* ========== GRAIN TEXTURE ========== */
-  .grain {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 256px 256px;
-  }
-
-  /* ========== SECTIONS ========== */
-  .page {
-    position: relative;
-    z-index: 2;
-  }
-
-  section {
-    padding: 5rem 2rem;
-  }
-
-  .section-inner {
-    max-width: 960px;
-    margin: 0 auto;
-  }
-
-  /* ========== HERO ========== */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 3rem 2rem;
-  }
-
-  .hero-content {
-    max-width: 620px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  @keyframes headTilt {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-3deg); }
-    75% { transform: rotate(3deg); }
-  }
-
-  .logo {
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: softAppear 1.2s ease 0.4s forwards;
-  }
-
-  .logo-awe {
-    font-family: 'Caveat', cursive;
-    font-weight: 500;
-    font-size: clamp(1.8rem, 4vw, 2.4rem);
-    color: var(--golden-amber);
-    display: block;
-    margin-bottom: -0.3em;
-    margin-left: 0.05em;
-    text-align: left;
-  }
-
-  h1 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-weight: 800;
-    font-size: clamp(3.5rem, 9vw, 5.5rem);
-    color: var(--charcoal);
-    line-height: 1;
-  }
-
-  h1 em {
-    font-style: italic;
-    color: var(--deep-terracotta);
-  }
-
-  .tagline {
-    font-family: 'Caveat', cursive;
-    font-weight: 500;
-    font-size: clamp(1.5rem, 3.5vw, 2rem);
-    color: var(--golden-amber);
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: softAppear 1.2s ease 0.6s forwards;
-  }
-
-  .description {
-    font-family: 'DM Sans', sans-serif;
-    font-size: clamp(1rem, 2.5vw, 1.15rem);
-    color: var(--warm-brown);
-    line-height: 1.8;
-    max-width: 480px;
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    animation: softAppear 1.2s ease 0.8s forwards;
-  }
-
-  /* ========== APP STORE BUTTON ========== */
-  .app-store-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: var(--rich-espresso);
-    color: var(--warm-cream);
-    text-decoration: none;
-    padding: 0.85rem 2rem;
-    border-radius: 14px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    margin-bottom: 1rem;
-    opacity: 0;
-    animation: softAppear 1.2s ease 1s forwards;
-  }
-
-  .app-store-btn:hover {
-    background: var(--charcoal);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(59,35,20,0.25);
-  }
-
-  .app-store-btn svg {
-    width: 22px;
-    height: 22px;
-    fill: currentColor;
-  }
-
-  .app-store-sub {
-    font-size: 0.8rem;
-    color: var(--warm-gray);
-    opacity: 0;
-    animation: softAppear 1.2s ease 1.1s forwards;
-    margin-bottom: 2rem;
-  }
-
-  /* ========== EMAIL FORM (kept for continued signups) ========== */
-  .email-section {
-    width: 100%;
-    max-width: 440px;
-    opacity: 0;
-    animation: softAppear 1.2s ease 1.2s forwards;
-  }
-
-  .email-label {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.95rem;
-    color: var(--warm-brown);
-    margin-bottom: 1rem;
-    display: block;
-  }
-
-  .email-form {
-    display: flex;
-    gap: 0.75rem;
-    width: 100%;
-  }
-
-  .email-input {
-    flex: 1;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    color: var(--charcoal);
-    background: var(--warm-cream);
-    border: 1.5px solid var(--soft-peach);
-    border-radius: 12px;
-    padding: 0.9rem 1.2rem;
-    outline: none;
-    transition: all 0.3s ease;
-  }
-
-  .email-input::placeholder { color: var(--warm-gray); }
-
-  .email-input:focus {
-    border-color: var(--golden-amber);
-    box-shadow: 0 0 0 3px rgba(232,168,124,0.15);
-  }
-
-  .email-button {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--rich-espresso);
-    background: var(--golden-amber);
-    border: none;
-    border-radius: 12px;
-    padding: 0.9rem 1.8rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-  }
-
-  .email-button:hover {
-    background: var(--deep-terracotta);
-    color: var(--warm-cream);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 20px rgba(212,133,107,0.3);
-  }
-
-  .email-success {
-    display: none;
-    font-family: 'Caveat', cursive;
-    font-size: 1.4rem;
-    color: var(--sage-green);
-    padding: 1rem;
-    animation: softAppear 0.6s ease forwards;
-  }
-
-  .email-section.submitted .email-form { display: none; }
-  .email-section.submitted .email-label { display: none; }
-  .email-section.submitted .email-success { display: block; }
-
-  /* ========== FEATURES ROW ========== */
-  .features {
-    display: flex;
-    gap: 2rem;
-    margin-top: 3rem;
-    flex-wrap: wrap;
-    justify-content: center;
-    opacity: 0;
-    animation: softAppear 1.2s ease 1.4s forwards;
-  }
-
-  .feature {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    min-width: 120px;
-  }
-
-  .feature-icon {
-    width: 48px; height: 48px;
-    border-radius: 14px;
-    background: var(--warm-cream);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    transition: transform 0.3s ease;
-  }
-
-  .feature:hover .feature-icon {
-    transform: translateY(-3px) scale(1.05);
-  }
-
-  .feature-text {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--warm-gray);
-    letter-spacing: 0.03em;
-  }
-
-  /* ========== HOW IT WORKS ========== */
-  .how-it-works {
-    background: var(--warm-cream);
-    text-align: center;
-  }
-
-  .section-label {
-    font-family: 'Caveat', cursive;
-    font-weight: 500;
-    font-size: 1.3rem;
-    color: var(--golden-amber);
-    margin-bottom: 0.5rem;
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-weight: 700;
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
-    color: var(--charcoal);
-    margin-bottom: 3.5rem;
-  }
-
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .step-number {
-    width: 56px; height: 56px;
-    border-radius: 50%;
-    background: var(--golden-amber);
-    color: var(--rich-espresso);
-    font-family: 'Playfair Display', serif;
-    font-weight: 800;
-    font-size: 1.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .step-emoji {
-    font-size: 2.2rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .step-title {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: var(--charcoal);
-  }
-
-  .step-desc {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.95rem;
-    color: var(--warm-brown);
-    line-height: 1.7;
-    max-width: 220px;
-  }
-
-  /* ========== HERO PHONE MOCKUP ========== */
-  .hero-phone-showcase {
-    position: relative;
-    margin-bottom: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    animation: softAppear 1.2s ease 0.2s forwards;
-  }
-
-  .hero-pet-photo {
-    position: absolute;
-    width: 280px;
-    height: 280px;
-    border-radius: 50%;
-    object-fit: cover;
-    filter: blur(0.5px) saturate(1.1);
-    opacity: 0.25;
-    z-index: 0;
-  }
-
-  .hero-device {
-    position: relative;
-    z-index: 1;
-    border-radius: 36px;
-    background: var(--charcoal);
-    padding: 10px;
-    box-shadow: 0 30px 80px rgba(59,35,20,0.18), 0 8px 24px rgba(59,35,20,0.1);
-    width: 220px;
-  }
-
-  .hero-device .device-notch {
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 22px;
-    background: var(--charcoal);
-    border-radius: 0 0 14px 14px;
-    z-index: 3;
-  }
-
-  .hero-device .device-screen {
-    border-radius: 28px;
-    overflow: hidden;
-    width: 100%;
-  }
-
-  .hero-device .device-screen img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  /* ========== APP PREVIEW / MOCKUPS ========== */
-  .app-preview {
-    text-align: center;
-    background: var(--off-white);
-  }
-
-  .mockup-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-    max-width: 840px;
-    margin: 0 auto;
-  }
-
-  .mockup-device {
-    position: relative;
-    border-radius: 28px;
-    background: var(--charcoal);
-    padding: 8px;
-    box-shadow: 0 20px 60px rgba(59,35,20,0.12), 0 4px 16px rgba(59,35,20,0.08);
-    transition: transform 0.4s ease;
-  }
-
-  .mockup-device:hover {
-    transform: translateY(-6px);
-  }
-
-  .mockup-device .device-notch {
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 14px;
-    background: var(--charcoal);
-    border-radius: 0 0 10px 10px;
-    z-index: 3;
-  }
-
-  .mockup-screen {
-    border-radius: 22px;
-    overflow: hidden;
-  }
-
-  .mockup-screen img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  .mockup-caption {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--warm-gray);
-    margin-top: 0.75rem;
-    text-align: center;
-  }
-
-  /* ========== PET PHOTO SECTIONS ========== */
-  .pet-photo-accent {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .pet-photo-bg {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 0;
-  }
-
-  .pet-photo-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.12;
-    filter: saturate(0.8);
-  }
-
-  .pet-photo-bg::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(180deg, var(--warm-cream) 0%, rgba(253,246,236,0.85) 40%, rgba(253,246,236,0.85) 60%, var(--warm-cream) 100%);
-  }
-
-  .pet-photo-accent .section-inner {
-    position: relative;
-    z-index: 1;
-  }
-
-  /* ========== PET GALLERY STRIP ========== */
-  .pet-gallery-strip {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-top: 2.5rem;
-  }
-
-  .pet-gallery-photo {
-    width: 160px;
-    height: 160px;
-    border-radius: 20px;
-    object-fit: cover;
-    box-shadow: 0 8px 30px rgba(59,35,20,0.1);
-    transition: transform 0.4s ease;
-    border: 3px solid rgba(255,255,255,0.8);
-  }
-
-  .pet-gallery-photo:hover {
-    transform: translateY(-4px) rotate(-1deg);
-  }
-
-  .pet-gallery-photo:nth-child(even):hover {
-    transform: translateY(-4px) rotate(1deg);
-  }
-
-  /* ========== SOCIAL PROOF ========== */
-  .social-proof {
-    text-align: center;
-    background: var(--warm-cream);
-  }
-
-  .proof-quote {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: clamp(1.4rem, 3.5vw, 2rem);
-    color: var(--charcoal);
-    max-width: 600px;
-    margin: 0 auto 2rem;
-    line-height: 1.5;
-  }
-
-  .proof-stats {
-    display: flex;
-    gap: 3rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-  }
-
-  .stat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-  }
-
-  .stat-icon {
-    font-size: 1.8rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .stat-value {
-    font-family: 'Playfair Display', serif;
-    font-weight: 800;
-    font-size: 1.6rem;
-    color: var(--charcoal);
-  }
-
-  .stat-label {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    color: var(--warm-gray);
-  }
-
-  .proof-cta {
-    font-family: 'Caveat', cursive;
-    font-size: 1.3rem;
-    color: var(--deep-terracotta);
-  }
-
-  .hashtag {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--golden-amber);
-    background: rgba(232,168,124,0.15);
-    padding: 0.4rem 1rem;
-    border-radius: 100px;
-    display: inline-block;
-    margin-top: 1.5rem;
-  }
-
-  /* ========== CTA SECTION ========== */
-  .cta-section {
-    text-align: center;
-    background: var(--off-white);
-    padding: 5rem 2rem 3rem;
-  }
-
-  .cta-section .section-title {
-    margin-bottom: 1rem;
-  }
-
-  .cta-subtitle {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1.05rem;
-    color: var(--warm-brown);
-    line-height: 1.7;
-    max-width: 460px;
-    margin: 0 auto 2.5rem;
-  }
-
-  /* ========== SOCIAL LINKS ========== */
-  .social-section {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    justify-content: center;
-    margin-top: 2rem;
-  }
-
-  .social-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px; height: 44px;
-    border-radius: 12px;
-    background: var(--warm-cream);
-    border: 1.5px solid var(--soft-peach);
-    color: var(--warm-brown);
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  .social-link svg {
-    width: 20px; height: 20px;
-    fill: currentColor;
-  }
-
-  .social-link:hover {
-    background: var(--golden-amber);
-    border-color: var(--golden-amber);
-    color: var(--rich-espresso);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(232,168,124,0.3);
-  }
-
-  /* ========== FOOTER ========== */
-  .footer {
-    background: var(--rich-espresso);
-    color: var(--soft-peach);
-    padding: 3rem 2rem;
-    text-align: center;
-  }
-
-  .footer-inner {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .footer-logo {
-    margin-bottom: 1.5rem;
-  }
-
-  .footer-logo .logo-awe {
-    font-size: 1.2rem;
-    color: var(--golden-amber);
-  }
-
-  .footer-logo .logo-main {
-    font-family: 'Playfair Display', serif;
-    font-weight: 800;
-    font-size: 1.8rem;
-    color: var(--warm-cream);
-  }
-
-  .footer-logo .logo-main em {
-    color: var(--golden-amber);
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 2rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 1.5rem;
-  }
-
-  .footer-links a {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
-    color: var(--soft-peach);
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .footer-links a:hover {
-    color: var(--golden-amber);
-  }
-
-  .footer-social {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-  }
-
-  .footer-social a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px; height: 38px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.08);
-    color: var(--soft-peach);
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  .footer-social a:hover {
-    background: var(--golden-amber);
-    color: var(--rich-espresso);
-  }
-
-  .footer-social svg {
-    width: 18px; height: 18px;
-    fill: currentColor;
-  }
-
-  .footer-contact {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    color: var(--warm-gray);
-    margin-bottom: 1rem;
-  }
-
-  .footer-contact a {
-    color: var(--golden-amber);
-    text-decoration: none;
-  }
-
-  .footer-contact a:hover {
-    text-decoration: underline;
-  }
-
-  .footer-copy {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.8rem;
-    color: var(--warm-gray);
-    letter-spacing: 0.05em;
-  }
-
-  /* ========== ANIMATIONS ========== */
-  @keyframes softAppear {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Scroll-triggered fade-in */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ========== RESPONSIVE ========== */
-  @media (max-width: 768px) {
-    .steps {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aww… That Face — One photo of your pet, every day</title>
+  <meta name="description" content="A daily photo ritual for the face you love. Capture one photo of your pet every day and watch those moments become something beautiful.">
+  <meta property="og:title" content="Aww… That Face — You know the one.">
+  <meta property="og:description" content="One photo of your pet, every day. Watch those moments become something beautiful.">
+  <meta property="og:image" content="https://www.awwthatface.com/images/mya-sunset.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="apple-itunes-app" content="app-id=XXXXXXXXX">
+  <link rel="canonical" href="https://www.awwthatface.com/">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Power On Media Group">
+  <meta name="language" content="English">
+  <meta property="og:url" content="https://www.awwthatface.com/">
+  <meta property="og:site_name" content="Aww… That Face">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:title" content="Aww… That Face — You know the one.">
+  <meta name="twitter:description" content="One photo of your pet, every day. Watch those moments become something beautiful.">
+  <meta name="twitter:image" content="https://www.awwthatface.com/images/mya-sunset.jpg">
+  <link rel="alternate" hreflang="en" href="https://www.awwthatface.com/">
+  <link rel="alternate" hreflang="x-default" href="https://www.awwthatface.com/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Aww… That Face",
+    "operatingSystem": "iOS 17+",
+    "applicationCategory": "PhotographyApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "A daily photo ritual for the face you love. One photo of your pet, every day.",
+    "screenshot": "images/screenshot-today.jpg"
+  }
+  </script>
+
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --warm-cream: #FDF6EC;
+      --soft-peach: #F5E1D0;
+      --golden-amber: #E8A87C;
+      --deep-terracotta: #D4856B;
+      --warm-brown: #6B4226;
+      --rich-espresso: #3B2314;
+      --blush-pink: #F2C4C4;
+      --sage-green: #A8B5A2;
+      --dusty-lavender: #C5B4CC;
+      --sky-soft: #B8D4E3;
+      --off-white: #FEFCF9;
+      --warm-gray: #A89B8C;
+      --charcoal: #2C2420;
+
+      --display: 'Playfair Display', Georgia, serif;
+      --body: 'DM Sans', -apple-system, sans-serif;
+      --handwritten: 'Caveat', cursive;
+
+      --shadow-card: 0 4px 20px rgba(59, 35, 20, 0.06);
+      --shadow-hover: 0 8px 32px rgba(59, 35, 20, 0.10);
+      --radius-card: 18px;
+      --radius-btn: 12px;
     }
 
-    .mockup-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      max-width: 400px;
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--body);
+      color: var(--charcoal);
+      background: var(--off-white);
+      line-height: 1.65;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
-    .proof-stats {
-      gap: 2rem;
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--deep-terracotta); text-decoration: none; }
+    a:hover { color: var(--golden-amber); }
+
+    /* ── Utility ── */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
     }
 
-    .hero-pet-photo {
-      width: 200px;
-      height: 200px;
+    .section-label {
+      font-family: var(--body);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--warm-gray);
+      margin-bottom: 16px;
     }
 
-    .hero-device {
-      width: 180px;
-      border-radius: 28px;
-      padding: 8px;
+    .section-headline {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(28px, 5vw, 48px);
+      color: var(--rich-espresso);
+      line-height: 1.2;
+      margin-bottom: 16px;
     }
 
-    .hero-device .device-notch {
-      width: 60px;
-      height: 16px;
-      top: 8px;
+    .section-body {
+      font-size: 17px;
+      color: var(--warm-brown);
+      max-width: 600px;
+      line-height: 1.7;
     }
 
-    .hero-device .device-screen {
-      border-radius: 22px;
+    /* ── Fade-in Animation ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
+    .fade-in-delay-4 { transition-delay: 0.35s; }
+    .fade-in-delay-5 { transition-delay: 0.4s; }
+
+    /* ── App Store Button ── */
+    .app-store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--charcoal);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: var(--radius-btn);
+      font-family: var(--body);
+      font-weight: 600;
+      font-size: 16px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .app-store-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(44, 36, 32, 0.18);
+      color: #fff;
+    }
+    .app-store-btn svg { flex-shrink: 0; }
+    .app-store-btn .btn-text-small {
+      font-size: 11px;
+      font-weight: 400;
+      display: block;
+      line-height: 1;
+      opacity: 0.85;
+    }
+    .app-store-btn .btn-text-large {
+      font-size: 18px;
+      font-weight: 600;
+      display: block;
+      line-height: 1.1;
     }
 
-    .pet-gallery-photo {
-      width: 120px;
-      height: 120px;
+    .btn-subtext {
+      font-size: 13px;
+      color: var(--warm-gray);
+      margin-top: 10px;
     }
 
-    .pet-gallery-strip {
-      gap: 1rem;
-    }
-  }
-
-  @media (max-width: 520px) {
-    .email-form {
-      flex-direction: column;
-    }
-
-    .email-button {
-      width: 100%;
-      padding: 1rem;
-    }
-
-    .features {
-      gap: 1.5rem;
-    }
-
-    section {
-      padding: 3.5rem 1.5rem;
-    }
-
+    /* ═══════════════════════════
+       HERO
+    ═══════════════════════════ */
     .hero {
-      padding: 2rem 1.5rem;
+      position: relative;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
 
-    .mockup-grid {
-      grid-template-columns: repeat(2, 1fr);
-      max-width: 320px;
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.55) saturate(1.1);
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(59, 35, 20, 0.25) 0%,
+        rgba(59, 35, 20, 0.45) 50%,
+        rgba(253, 246, 236, 0.95) 92%,
+        var(--off-white) 100%
+      );
     }
 
-    .mockup-device {
-      padding: 6px;
-      border-radius: 20px;
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 120px 24px 80px;
+      max-width: 720px;
     }
 
-    .mockup-screen {
-      border-radius: 16px;
+    .hero-logo {
+      margin-bottom: 28px;
+    }
+    .hero-logo .aww {
+      font-family: var(--handwritten);
+      font-size: clamp(44px, 8vw, 72px);
+      font-weight: 600;
+      color: var(--golden-amber);
+      display: block;
+      line-height: 1;
+      text-shadow: 0 2px 12px rgba(59, 35, 20, 0.15);
+    }
+    .hero-logo .that-face {
+      font-family: var(--display);
+      font-size: clamp(52px, 10vw, 88px);
+      font-weight: 800;
+      color: #fff;
+      display: block;
+      line-height: 1.05;
+      text-shadow: 0 2px 20px rgba(59, 35, 20, 0.2);
+    }
+    .hero-logo .that-face em {
+      font-style: italic;
     }
 
-    .mockup-device .device-notch {
-      width: 40px;
+    .hero-tagline {
+      font-family: var(--handwritten);
+      font-size: clamp(22px, 4vw, 32px);
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .hero-subheadline {
+      font-family: var(--body);
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 520px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .hero .btn-subtext { color: rgba(255, 255, 255, 0.55); }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.6;
+      animation: scrollBounce 2.2s ease-in-out infinite;
+    }
+    .scroll-indicator span {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      font-family: var(--body);
+    }
+    .scroll-indicator svg { opacity: 0.7; }
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ═══════════════════════════
+       SECTION: THE FEELING
+    ═══════════════════════════ */
+    .feeling {
+      padding: 100px 0 80px;
+      background: var(--off-white);
+    }
+
+    .feeling-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+
+    .feeling-photo {
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      border: 6px solid var(--soft-peach);
+      box-shadow: var(--shadow-card);
+      aspect-ratio: 4/5;
+    }
+    .feeling-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cat-placeholder {
+      border-radius: var(--radius-card);
+      border: 6px solid var(--soft-peach);
+      box-shadow: var(--shadow-card);
+      background: var(--warm-cream);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 4/5;
+      gap: 16px;
+    }
+    .cat-face-icon {
+      width: 80px;
+      height: 80px;
+      position: relative;
+    }
+    .cat-face-icon .eye {
+      width: 10px;
       height: 10px;
-      top: 6px;
-      border-radius: 0 0 7px 7px;
+      background: var(--warm-brown);
+      border-radius: 50%;
+      position: absolute;
+      top: 28px;
+    }
+    .cat-face-icon .eye-left { left: 22px; }
+    .cat-face-icon .eye-right { right: 22px; }
+    .cat-face-icon .nose {
+      width: 12px;
+      height: 9px;
+      background: var(--deep-terracotta);
+      border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
+      position: absolute;
+      top: 44px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .cat-face-icon .ear {
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-bottom: 18px solid var(--warm-brown);
+      position: absolute;
+      top: 4px;
+    }
+    .cat-face-icon .ear-left { left: 10px; transform: rotate(-12deg); }
+    .cat-face-icon .ear-right { right: 10px; transform: rotate(12deg); }
+    .cat-placeholder p {
+      font-family: var(--handwritten);
+      font-size: 22px;
+      color: var(--warm-gray);
+      font-weight: 500;
     }
 
-    .hero-device {
-      width: 160px;
-      border-radius: 24px;
-      padding: 6px;
+    .feeling-text { text-align: center; }
+
+    /* ═══════════════════════════
+       SECTION: DAILY RITUAL
+    ═══════════════════════════ */
+    .daily-ritual {
+      padding: 100px 0;
+      background: var(--warm-cream);
+      text-align: center;
     }
 
-    .hero-device .device-notch {
-      width: 50px;
-      height: 14px;
-      top: 6px;
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      max-width: 480px;
+      margin: 48px auto 0;
     }
 
-    .hero-device .device-screen {
-      border-radius: 20px;
+    .timeline-cell {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 2px dashed var(--soft-peach);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s ease;
+    }
+    .timeline-cell .fill {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      opacity: 0;
+      transform: scale(0.7);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .timeline-cell.filled {
+      border-color: transparent;
+    }
+    .timeline-cell.filled .fill {
+      opacity: 1;
+      transform: scale(1);
     }
 
-    .pet-gallery-photo {
-      width: 100px;
-      height: 100px;
-      border-radius: 14px;
+    .timeline-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      max-width: 480px;
+      margin: 10px auto 0;
     }
-  }
-</style>
+    .timeline-days span {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--warm-gray);
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+
+    /* ═══════════════════════════
+       SECTION: HOW IT WORKS
+    ═══════════════════════════ */
+    .how-it-works {
+      padding: 100px 0;
+      background: var(--off-white);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 48px;
+    }
+
+    .step-card {
+      background: var(--warm-cream);
+      border-radius: var(--radius-card);
+      padding: 36px 28px;
+      border: 1px solid rgba(232, 168, 124, 0.15);
+      box-shadow: var(--shadow-card);
+      text-align: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    .step-emoji {
+      font-size: 40px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .step-card h3 {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--rich-espresso);
+      margin-bottom: 10px;
+    }
+    .step-card p {
+      font-size: 15px;
+      color: var(--warm-brown);
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════
+       SECTION: SCREENSHOTS
+    ═══════════════════════════ */
+    .screenshots {
+      padding: 100px 0;
+      background: var(--warm-cream);
+      overflow: hidden;
+    }
+
+    .screenshots-scroll {
+      display: flex;
+      gap: 28px;
+      margin-top: 48px;
+      padding: 0 24px 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .screenshots-scroll::-webkit-scrollbar { display: none; }
+
+    .screenshot-item {
+      flex: 0 0 auto;
+      text-align: center;
+      scroll-snap-align: center;
+    }
+
+    .phone-frame {
+      background: var(--charcoal);
+      border-radius: 36px;
+      padding: 12px;
+      width: 220px;
+      box-shadow: 0 12px 40px rgba(59, 35, 20, 0.14);
+      transition: transform 0.4s ease;
+    }
+    .phone-frame:hover {
+      transform: translateY(-6px);
+    }
+    .phone-frame img {
+      border-radius: 26px;
+      width: 100%;
+      display: block;
+    }
+
+    .screenshot-label {
+      font-family: var(--body);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--warm-brown);
+      margin-top: 16px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ═══════════════════════════
+       SECTION: DAY 1 vs 365
+    ═══════════════════════════ */
+    .payoff {
+      padding: 100px 0;
+      background: var(--off-white);
+      text-align: center;
+    }
+
+    .payoff-timeline {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 48px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .payoff-stage { text-align: center; }
+    .payoff-stage h3 {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--rich-espresso);
+      margin-bottom: 16px;
+    }
+
+    .mosaic-grid {
+      display: grid;
+      gap: 4px;
+      aspect-ratio: 1;
+      max-width: 260px;
+      margin: 0 auto;
+    }
+    .mosaic-grid.day-1 { grid-template-columns: repeat(3, 1fr); }
+    .mosaic-grid.day-30 { grid-template-columns: repeat(4, 1fr); }
+    .mosaic-grid.day-365 { grid-template-columns: repeat(6, 1fr); }
+
+    .mosaic-cell {
+      aspect-ratio: 1;
+      border-radius: 4px;
+      background: var(--soft-peach);
+      opacity: 0.15;
+      transform: scale(0.8);
+      transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                  transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  background-color 0.3s ease;
+    }
+    .mosaic-cell.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .mosaic-cell.animating {
+      opacity: 0.15;
+      transform: scale(0.8);
+    }
+    .mosaic-cell.animating.pop {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .mosaic-cell.c1 { background: var(--golden-amber); }
+    .mosaic-cell.c2 { background: var(--deep-terracotta); }
+    .mosaic-cell.c3 { background: var(--soft-peach); }
+    .mosaic-cell.c4 { background: var(--blush-pink); }
+    .mosaic-cell.c5 { background: var(--warm-brown); }
+    .mosaic-cell.c6 { background: var(--dusty-lavender); }
+    .mosaic-cell.c7 { background: var(--sage-green); }
+    .mosaic-cell.c8 { background: var(--sky-soft); }
+
+    /* ═══════════════════════════
+       SECTION: FEATURES
+    ═══════════════════════════ */
+    .features {
+      padding: 100px 0;
+      background: var(--warm-cream);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .feature-card {
+      background: var(--off-white);
+      border-radius: var(--radius-card);
+      padding: 32px 24px;
+      border: 1px solid rgba(232, 168, 124, 0.12);
+      box-shadow: var(--shadow-card);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+    .feature-card .feat-emoji {
+      font-size: 32px;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .feature-card h3 {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 19px;
+      color: var(--rich-espresso);
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 15px;
+      color: var(--warm-brown);
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════
+       SECTION: SOCIAL PROOF
+    ═══════════════════════════ */
+    .social-proof {
+      padding: 100px 0;
+      background: var(--off-white);
+      text-align: center;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 36px 0;
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--rich-espresso);
+    }
+    .stat-divider {
+      color: var(--soft-peach);
+      font-weight: 300;
+    }
+
+    .testimonial-card {
+      background: var(--warm-cream);
+      border-radius: var(--radius-card);
+      padding: 40px;
+      max-width: 560px;
+      margin: 0 auto;
+      border: 1px solid rgba(232, 168, 124, 0.15);
+      box-shadow: var(--shadow-card);
+    }
+    .testimonial-card blockquote {
+      font-family: var(--handwritten);
+      font-size: 24px;
+      color: var(--warm-brown);
+      font-weight: 500;
+      font-style: normal;
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════
+       SECTION: FAQ
+    ═══════════════════════════ */
+    .faq {
+      padding: 100px 0;
+      background: var(--warm-cream);
+    }
+
+    .faq-list {
+      max-width: 680px;
+      margin: 48px auto 0;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(232, 168, 124, 0.2);
+    }
+    .faq-item:first-child {
+      border-top: 1px solid rgba(232, 168, 124, 0.2);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--rich-espresso);
+      padding: 22px 0;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      line-height: 1.35;
+    }
+    .faq-question:hover { color: var(--deep-terracotta); }
+    .faq-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--golden-amber);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--golden-amber);
+      transition: transform 0.3s ease;
+      font-family: var(--body);
+      font-weight: 400;
+      line-height: 1;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 200px;
+    }
+    .faq-answer-inner {
+      padding: 0 0 22px;
+      font-size: 16px;
+      color: var(--warm-brown);
+      line-height: 1.7;
+    }
+
+    /* ═══════════════════════════
+       SECTION: FINAL CTA
+    ═══════════════════════════ */
+    .final-cta {
+      padding: 100px 0 80px;
+      background: var(--off-white);
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-accent {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--soft-peach);
+      box-shadow: var(--shadow-card);
+      margin: 0 auto 32px;
+    }
+
+    .cta-hashtag {
+      font-family: var(--handwritten);
+      font-size: 22px;
+      color: var(--golden-amber);
+      margin-top: 24px;
+      font-weight: 500;
+    }
+
+    /* ═══════════════════════════
+       FOOTER
+    ═══════════════════════════ */
+    .site-footer {
+      padding: 48px 0;
+      background: var(--charcoal);
+      color: rgba(253, 246, 236, 0.6);
+      text-align: center;
+      font-size: 14px;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: rgba(253, 246, 236, 0.6);
+      font-weight: 500;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--golden-amber); }
+    .footer-copy { margin-bottom: 10px; }
+    .footer-hashtag {
+      font-family: var(--handwritten);
+      font-size: 20px;
+      color: var(--golden-amber);
+      font-weight: 500;
+    }
+
+    /* ═══════════════════════════
+       RESPONSIVE
+    ═══════════════════════════ */
+    @media (max-width: 800px) {
+      .feeling-grid { grid-template-columns: 1fr; max-width: 340px; margin-left: auto; margin-right: auto; }
+      .steps-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+      .features-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+      .payoff-timeline { grid-template-columns: 1fr; gap: 40px; }
+      .phone-frame { width: 200px; }
+      .stat-row { gap: 16px; }
+      .stat-divider { display: none; }
+      .stat-item { font-size: 16px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content { padding: 100px 20px 60px; }
+      .phone-frame { width: 180px; }
+      .screenshots-scroll { gap: 18px; }
+      .testimonial-card { padding: 28px; }
+      .faq-question { font-size: 16px; }
+    }
+
+    /* ── Timeline animation ── */
+    @keyframes cellFadeIn {
+      from { opacity: 0; transform: scale(0.6); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
 </head>
 <body>
 
-<!-- Ambient background -->
-<div class="ambient">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-</div>
-<div class="grain"></div>
-
-<div class="page">
-
-  <!-- ===== HERO ===== -->
-  <section class="hero">
+  <!-- ═══════ HERO ═══════ -->
+  <section class="hero" id="top">
+    <div class="hero-bg">
+      <img src="images/mya-sunset.jpg" alt="Golden retriever Mya bathed in warm golden hour light" width="1600" height="1000">
+    </div>
     <div class="hero-content">
-
-      <div class="hero-phone-showcase">
-        <img src="images/mya-sunset.jpg" alt="Mya the dog at sunset on coastal rocks" class="hero-pet-photo">
-        <div class="hero-device">
-          <div class="device-notch"></div>
-          <div class="device-screen">
-            <img src="images/screenshot-today.jpg" alt="Aww That Face app — Today screen showing Mya's daily photo with stuffed toy" loading="eager">
+      <h1 class="hero-logo fade-in" style="margin:0;">
+        <span class="aww">Aww…</span>
+        <span class="that-face">That <em>Face.</em></span>
+      </h1>
+      <p class="hero-tagline fade-in fade-in-delay-1">You know the one.</p>
+      <p class="hero-subheadline fade-in fade-in-delay-2">One photo of your pet, every day.<br>Watch those moments become something beautiful.</p>
+      <div class="fade-in fade-in-delay-3">
+        <a href="#" class="app-store-btn" aria-label="Download on the App Store">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <div>
+            <span class="btn-text-small">Download on the</span>
+            <span class="btn-text-large">App Store</span>
           </div>
-        </div>
+        </a>
+        <p class="btn-subtext">Free · iOS 17+</p>
       </div>
 
-      <div class="logo">
-        <span class="logo-awe">Aww…</span>
-        <h1>That <em>Face.</em></h1>
+      <!-- Email signup while waiting for App Store -->
+      <div class="fade-in fade-in-delay-4" id="emailSection" style="margin-top: 24px; max-width: 420px; width: 100%;">
+        <label style="font-family: var(--body); font-size: 14px; color: rgba(255,255,255,0.7); display: block; margin-bottom: 10px;">Get notified when we launch + tips for pet parents:</label>
+        <div id="emailForm" style="display: flex; gap: 8px;">
+          <input type="email" id="emailInput" placeholder="your@email.com" required autocomplete="email" style="flex:1; font-family: var(--body); font-size: 15px; padding: 12px 16px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: #fff; backdrop-filter: blur(10px); outline: none;">
+          <button id="emailButton" onclick="handleSubmit()" style="font-family: var(--body); font-size: 14px; font-weight: 600; padding: 12px 20px; border-radius: 12px; border: none; background: var(--golden-amber); color: var(--rich-espresso); cursor: pointer; white-space: nowrap;">Join Us</button>
+        </div>
+        <div class="email-success" style="display: none; font-family: var(--handwritten); font-size: 1.3rem; color: var(--sage-green); padding: 12px 0;">🧡 You're in! Welcome to the family.</div>
       </div>
-
-      <div class="tagline">You know the one.</div>
-
-      <p class="description">
-        A daily photo ritual with your favorite face. One photo of your pet, every day — then watch those moments become photo books, prints, and video slideshows you'll love.
-      </p>
-
-      <!-- App Store button -->
-      <a href="#" class="app-store-btn" id="appStoreBtn">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        Download on the App Store
-      </a>
-      <p class="app-store-sub">Free · iOS 17+</p>
-
-      <!-- Email signup (keep for continued growth) -->
-      <div class="email-section" id="emailSection">
-        <label class="email-label">Get updates & tips for pet parents:</label>
-        <div class="email-form" id="emailForm">
-          <input type="email" class="email-input" id="emailInput" placeholder="your@email.com" required autocomplete="email">
-          <button class="email-button" id="emailButton" onclick="handleSubmit()">Join Us</button>
-        </div>
-        <div class="email-success">🧡 You're in! Welcome to the family.</div>
-      </div>
-
-      <div class="features">
-        <div class="feature">
-          <div class="feature-icon">📸</div>
-          <span class="feature-text">Daily Photos</span>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">📖</div>
-          <span class="feature-text">Photo Books</span>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">🖨️</div>
-          <span class="feature-text">Prints</span>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">🎬</div>
-          <span class="feature-text">Slideshows</span>
-        </div>
-      </div>
-
+    </div>
+    <div class="scroll-indicator" aria-hidden="true">
+      <span>Scroll</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
     </div>
   </section>
 
-  <!-- ===== HOW IT WORKS ===== -->
-  <section class="how-it-works">
-    <div class="section-inner fade-in">
-      <p class="section-label">Simple as it sounds</p>
-      <h2 class="section-title">How It Works</h2>
-      <div class="steps">
-        <div class="step">
-          <div class="step-emoji">📷</div>
-          <div class="step-number">1</div>
-          <h3 class="step-title">Take One Photo Today</h3>
-          <p class="step-desc">Open the app. Snap your pet's face. That's it — your daily ritual in seconds.</p>
+  <!-- ═══════ THE FEELING ═══════ -->
+  <section class="feeling" id="feeling">
+    <div class="container">
+      <div class="feeling-grid">
+        <div class="feeling-photo fade-in">
+          <img src="images/mya-cozy.jpg" alt="Mya napping peacefully by a sunlit window" loading="lazy" width="600" height="750">
         </div>
-        <div class="step">
-          <div class="step-emoji">📅</div>
-          <div class="step-number">2</div>
-          <h3 class="step-title">Watch Your Timeline Grow</h3>
-          <p class="step-desc">Day by day, your gallery fills with every expression, every mood, every look.</p>
+        <div class="cat-placeholder fade-in fade-in-delay-1" style="padding:0; overflow:hidden; border-radius:20px;">
+          <img src="images/cat-golden-hour.jpg" alt="Beautiful orange tabby cat in warm golden light" style="width:100%; height:100%; object-fit:cover; display:block; border-radius:20px;" loading="lazy">
         </div>
-        <div class="step">
-          <div class="step-emoji">🎁</div>
-          <div class="step-number">3</div>
-          <h3 class="step-title">Turn Moments Into Keepsakes</h3>
-          <p class="step-desc">Create photo books, order prints, and build video slideshows from your collection.</p>
+        <div style="display:none;">
+          <div class="cat-face-icon" aria-hidden="true">
+            <div class="ear ear-left"></div>
+            <div class="ear ear-right"></div>
+            <div class="eye eye-left"></div>
+            <div class="eye eye-right"></div>
+            <div class="nose"></div>
+          </div>
+          <p>Your cat here</p></div>
         </div>
+      </div>
+      <div class="feeling-text fade-in">
+        <p class="section-label">For Every Pet Person</p>
+        <h2 class="section-headline">For every dog person. Every cat person.<br>Every "look at that face" person.</h2>
+        <p class="section-body" style="margin: 0 auto;">Whether they have paws, whiskers, floppy ears, or a tiny pink nose — if you can't stop looking at them, this app is for you.</p>
       </div>
     </div>
   </section>
 
-  <!-- ===== APP PREVIEW ===== -->
-  <section class="app-preview">
-    <div class="section-inner fade-in">
-      <p class="section-label">Peek inside</p>
-      <h2 class="section-title">Designed for Pet Parents</h2>
-      <div class="mockup-grid">
-
-        <!-- Today -->
-        <div>
-          <div class="mockup-device">
-            <div class="device-notch"></div>
-            <div class="mockup-screen">
-              <img src="images/screenshot-today.jpg" alt="Today screen — Mya's daily photo with her stuffed toy, ready to capture" loading="lazy">
-            </div>
-          </div>
-          <p class="mockup-caption">Today</p>
-        </div>
-
-        <!-- Gallery -->
-        <div>
-          <div class="mockup-device">
-            <div class="device-notch"></div>
-            <div class="mockup-screen">
-              <img src="images/screenshot-gallery.jpg" alt="Gallery grid view — browse all of Mya's daily photos in a beautiful grid" loading="lazy">
-            </div>
-          </div>
-          <p class="mockup-caption">Gallery</p>
-        </div>
-
-        <!-- Favorites -->
-        <div>
-          <div class="mockup-device">
-            <div class="device-notch"></div>
-            <div class="mockup-screen">
-              <img src="images/screenshot-favorites.jpg" alt="Favorites collection — your most loved pet photos marked with hearts" loading="lazy">
-            </div>
-          </div>
-          <p class="mockup-caption">Favorites</p>
-        </div>
-
-        <!-- Create -->
-        <div>
-          <div class="mockup-device">
-            <div class="device-notch"></div>
-            <div class="mockup-screen">
-              <img src="images/screenshot-create.jpg" alt="Create screen — make photo books, slideshows, and prints from your collection" loading="lazy">
-            </div>
-          </div>
-          <p class="mockup-caption">Create</p>
-        </div>
-
+  <!-- ═══════ DAILY RITUAL ═══════ -->
+  <section class="daily-ritual" id="ritual">
+    <div class="container">
+      <p class="section-label fade-in">The Daily Ritual</p>
+      <h2 class="section-headline fade-in">One face. Every day. That's it.</h2>
+      <p class="section-body fade-in" style="margin: 0 auto;">No pressure. No filters. Just the face you love, captured before the moment passes.</p>
+      <div class="timeline-grid fade-in" id="timelineGrid">
+        <div class="timeline-cell"><div class="fill" style="background: var(--golden-amber);"></div></div>
+        <div class="timeline-cell"><div class="fill" style="background: var(--deep-terracotta);"></div></div>
+        <div class="timeline-cell"><div class="fill" style="background: var(--soft-peach);"></div></div>
+        <div class="timeline-cell"><div class="fill" style="background: var(--blush-pink);"></div></div>
+        <div class="timeline-cell"><div class="fill" style="background: var(--golden-amber);"></div></div>
+        <div class="timeline-cell"><div class="fill" style="background: var(--deep-terracotta);"></div></div>
+        <div class="timeline-cell"><div class="fill" style="background: var(--warm-brown);"></div></div>
+      </div>
+      <div class="timeline-days fade-in">
+        <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
       </div>
     </div>
   </section>
 
-  <!-- ===== SOCIAL PROOF ===== -->
-  <section class="social-proof pet-photo-accent">
-    <div class="pet-photo-bg">
-      <img src="images/mya-cozy.jpg" alt="" role="presentation" loading="lazy">
-    </div>
-    <div class="section-inner fade-in">
-      <p class="section-label">Not about loss — about love, right now</p>
-      <p class="proof-quote">Join thousands of pet parents capturing daily moments with the faces they love most.</p>
-      <div class="proof-stats">
-        <div class="stat">
-          <div class="stat-icon">📸</div>
-          <div class="stat-value">1 photo</div>
-          <div class="stat-label">per day is all it takes</div>
-        </div>
-        <div class="stat">
-          <div class="stat-icon">🧡</div>
-          <div class="stat-value">365</div>
-          <div class="stat-label">faces in a year</div>
-        </div>
-        <div class="stat">
-          <div class="stat-icon">📖</div>
-          <div class="stat-value">∞</div>
-          <div class="stat-label">memories to keep</div>
-        </div>
+  <!-- ═══════ HOW IT WORKS ═══════ -->
+  <section class="how-it-works" id="how">
+    <div class="container">
+      <div style="text-align: center;">
+        <p class="section-label fade-in">How It Works</p>
+        <h2 class="section-headline fade-in">Three steps. Zero stress.</h2>
       </div>
-      <p class="proof-cta">Every face tells a story. Start yours today.</p>
-      <div class="hashtag">#AwwThatFace</div>
-
-      <!-- Real pet photos strip -->
-      <div class="pet-gallery-strip">
-        <img src="images/mya-hat.jpg" alt="Mya wearing a cute floral sun hat with tongue out" class="pet-gallery-photo" loading="lazy">
-        <img src="images/mya-studio.jpg" alt="Mya in a beautiful studio-style portrait with rim lighting" class="pet-gallery-photo" loading="lazy">
-        <img src="images/mya-sunset.jpg" alt="Mya sitting on rocks at golden hour with the ocean behind her" class="pet-gallery-photo" loading="lazy">
+      <div class="steps-grid">
+        <div class="step-card fade-in">
+          <span class="step-emoji">📷</span>
+          <h3>Open. Snap. Done.</h3>
+          <p>One photo. Takes 5 seconds. Your daily ritual starts now.</p>
+        </div>
+        <div class="step-card fade-in fade-in-delay-1">
+          <span class="step-emoji">📅</span>
+          <h3>Watch it grow.</h3>
+          <p>Day by day, your timeline fills with every expression, every mood, every look they give you.</p>
+        </div>
+        <div class="step-card fade-in fade-in-delay-2">
+          <span class="step-emoji">🎁</span>
+          <h3>Make something beautiful.</h3>
+          <p>Photo books. Prints. Video slideshows. Your collection becomes keepsakes you'll treasure.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== FINAL CTA ===== -->
-  <section class="cta-section">
-    <div class="section-inner fade-in">
-      <p class="section-label">Ready?</p>
-      <h2 class="section-title">Start Your Daily Ritual</h2>
-      <p class="cta-subtitle">Download Aww… That Face and capture your pet's face every day. It's free, it's private, and it's all yours.</p>
-      <div style="margin-bottom: 2rem;">
-        <img src="images/mya-hat.jpg" alt="Mya the dog wearing a floral hat — the kind of moment Aww That Face captures" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid var(--soft-peach); box-shadow: 0 8px 30px rgba(59,35,20,0.12);" loading="lazy">
+  <!-- ═══════ SCREENSHOTS ═══════ -->
+  <section class="screenshots" id="screenshots">
+    <div class="container" style="text-align: center;">
+      <p class="section-label fade-in">The App</p>
+      <h2 class="section-headline fade-in">Designed to feel like home.</h2>
+    </div>
+    <div class="screenshots-scroll">
+      <div style="flex: 0 0 24px;"></div>
+      <div class="screenshot-item fade-in">
+        <div class="phone-frame">
+          <img src="images/screenshot-today.jpg" alt="Today screen showing Mya's daily photo" loading="lazy" width="196" height="424">
+        </div>
+        <p class="screenshot-label">Today</p>
       </div>
-      <a href="#" class="app-store-btn" style="opacity:1;animation:none;">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        Download on the App Store
-      </a>
-
-      <div class="social-section">
-        <a href="https://instagram.com/awwthatface" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        </a>
-        <a href="https://tiktok.com/@awwthat.face" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok">
-          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
-        </a>
-        <a href="https://x.com/awwthatface" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (Twitter)">
-          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
+      <div class="screenshot-item fade-in fade-in-delay-1">
+        <div class="phone-frame">
+          <img src="images/screenshot-gallery.jpg" alt="Photo gallery grid showing daily pet photos" loading="lazy" width="196" height="424">
+        </div>
+        <p class="screenshot-label">Gallery</p>
       </div>
-
+      <div class="screenshot-item fade-in fade-in-delay-2">
+        <div class="phone-frame">
+          <img src="images/screenshot-favorites.jpg" alt="Favorites collection of best pet photos" loading="lazy" width="196" height="424">
+        </div>
+        <p class="screenshot-label">Favorites</p>
+      </div>
+      <div class="screenshot-item fade-in fade-in-delay-3">
+        <div class="phone-frame">
+          <img src="images/screenshot-create.jpg" alt="Create screen for photo books and prints" loading="lazy" width="196" height="424">
+        </div>
+        <p class="screenshot-label">Create</p>
+      </div>
+      <div style="flex: 0 0 24px;"></div>
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-logo">
-        <span class="logo-awe">Aww…</span>
-        <div class="logo-main">That <em>Face.</em></div>
+  <!-- ═══════ THE PAYOFF ═══════ -->
+  <section class="payoff" id="payoff">
+    <div class="container">
+      <p class="section-label fade-in">The Payoff</p>
+      <h2 class="section-headline fade-in">Imagine a year from now.</h2>
+      <p class="section-body fade-in" style="margin: 0 auto;">365 faces. Every mood. Every moment. All yours.</p>
+      <div class="payoff-timeline">
+        <div class="payoff-stage fade-in">
+          <h3>Day 1</h3>
+          <div class="mosaic-grid day-1" aria-label="A grid with one photo on day one">
+            <div class="mosaic-cell active c1"></div>
+            <div class="mosaic-cell"></div>
+            <div class="mosaic-cell"></div>
+            <div class="mosaic-cell"></div>
+            <div class="mosaic-cell"></div>
+            <div class="mosaic-cell"></div>
+            <div class="mosaic-cell"></div>
+            <div class="mosaic-cell"></div>
+            <div class="mosaic-cell"></div>
+          </div>
+        </div>
+        <div class="payoff-stage fade-in fade-in-delay-1">
+          <h3>Day 30</h3>
+          <div class="mosaic-grid day-30" aria-label="A grid filling up after 30 days">
+            <div class="mosaic-cell active c1"></div>
+            <div class="mosaic-cell active c2"></div>
+            <div class="mosaic-cell active c3"></div>
+            <div class="mosaic-cell active c4"></div>
+            <div class="mosaic-cell active c1"></div>
+            <div class="mosaic-cell active c2"></div>
+            <div class="mosaic-cell active c3"></div>
+            <div class="mosaic-cell active c4"></div>
+            <div class="mosaic-cell active c5"></div>
+            <div class="mosaic-cell active c1"></div>
+            <div class="mosaic-cell active c2"></div>
+            <div class="mosaic-cell active c6"></div>
+            <div class="mosaic-cell active c7"></div>
+            <div class="mosaic-cell active c3"></div>
+            <div class="mosaic-cell"></div>
+            <div class="mosaic-cell"></div>
+          </div>
+        </div>
+        <div class="payoff-stage fade-in fade-in-delay-2">
+          <h3>Day 365</h3>
+          <div class="mosaic-grid day-365" aria-label="A full gorgeous mosaic after a year">
+            <div class="mosaic-cell active c1"></div>
+            <div class="mosaic-cell active c2"></div>
+            <div class="mosaic-cell active c3"></div>
+            <div class="mosaic-cell active c4"></div>
+            <div class="mosaic-cell active c5"></div>
+            <div class="mosaic-cell active c6"></div>
+            <div class="mosaic-cell active c7"></div>
+            <div class="mosaic-cell active c8"></div>
+            <div class="mosaic-cell active c1"></div>
+            <div class="mosaic-cell active c2"></div>
+            <div class="mosaic-cell active c3"></div>
+            <div class="mosaic-cell active c4"></div>
+            <div class="mosaic-cell active c5"></div>
+            <div class="mosaic-cell active c6"></div>
+            <div class="mosaic-cell active c7"></div>
+            <div class="mosaic-cell active c8"></div>
+            <div class="mosaic-cell active c1"></div>
+            <div class="mosaic-cell active c2"></div>
+            <div class="mosaic-cell active c3"></div>
+            <div class="mosaic-cell active c4"></div>
+            <div class="mosaic-cell active c5"></div>
+            <div class="mosaic-cell active c6"></div>
+            <div class="mosaic-cell active c7"></div>
+            <div class="mosaic-cell active c8"></div>
+            <div class="mosaic-cell active c1"></div>
+            <div class="mosaic-cell active c2"></div>
+            <div class="mosaic-cell active c3"></div>
+            <div class="mosaic-cell active c4"></div>
+            <div class="mosaic-cell active c5"></div>
+            <div class="mosaic-cell active c6"></div>
+            <div class="mosaic-cell active c7"></div>
+            <div class="mosaic-cell active c8"></div>
+            <div class="mosaic-cell active c1"></div>
+            <div class="mosaic-cell active c2"></div>
+            <div class="mosaic-cell active c3"></div>
+            <div class="mosaic-cell active c4"></div>
+          </div>
+        </div>
       </div>
-      <div class="footer-links">
-        <a href="/privacy.html">Privacy Policy</a>
-        <a href="mailto:hello@awwthatface.com">Contact</a>
-        <a href="/support">Support</a>
+    </div>
+  </section>
+
+  <!-- ═══════ FEATURES ═══════ -->
+  <section class="features" id="features">
+    <div class="container">
+      <div style="text-align: center;">
+        <p class="section-label fade-in">Features</p>
+        <h2 class="section-headline fade-in">Everything you need.<br>Nothing you don't.</h2>
       </div>
-      <div class="footer-social">
-        <a href="https://instagram.com/awwthatface" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        </a>
-        <a href="https://tiktok.com/@awwthat.face" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
-        </a>
-        <a href="https://x.com/awwthatface" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <span class="feat-emoji">📸</span>
+          <h3>Daily Photo Ritual</h3>
+          <p>One tap, one photo, every day.</p>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-1">
+          <span class="feat-emoji">📖</span>
+          <h3>Auto Photo Books</h3>
+          <p>By week, month, season, or year.</p>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-2">
+          <span class="feat-emoji">🖨️</span>
+          <h3>Print On Demand</h3>
+          <p>Order real prints delivered to your door.</p>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-3">
+          <span class="feat-emoji">🎬</span>
+          <h3>Video Slideshows</h3>
+          <p>Auto-generated highlight reels.</p>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-4">
+          <span class="feat-emoji">❤️</span>
+          <h3>Favorites Collection</h3>
+          <p>Heart the moments that matter most.</p>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-5">
+          <span class="feat-emoji">🔒</span>
+          <h3>Private &amp; Secure</h3>
+          <p>Your photos stay on your device.</p>
+        </div>
       </div>
-      <p class="footer-contact">Questions? <a href="mailto:hello@awwthatface.com">hello@awwthatface.com</a></p>
-      <p class="footer-copy">© 2025 Power On Media Group. All rights reserved. Made with 🧡 for pet lovers everywhere.</p>
+    </div>
+  </section>
+
+  <!-- ═══════ SOCIAL PROOF ═══════ -->
+  <section class="social-proof" id="proof">
+    <div class="container">
+      <p class="section-label fade-in">By The Numbers</p>
+      <h2 class="section-headline fade-in">Built for the 900 million dog owners<br>and 600 million cat owners worldwide.</h2>
+      <div style="margin: 40px auto 32px; max-width: 480px; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 32px rgba(59,35,20,0.10);">
+        <img src="images/dog-cat-together.jpg" alt="A dog and cat lying together — Aww That Face is for all pet parents" style="width:100%; display:block;" loading="lazy">
+      </div>
+      <div class="stat-row fade-in">
+        <span class="stat-item">1 photo/day</span>
+        <span class="stat-divider" aria-hidden="true">·</span>
+        <span class="stat-item">30 photos/month</span>
+        <span class="stat-divider" aria-hidden="true">·</span>
+        <span class="stat-item">365 faces/year</span>
+      </div>
+      <div class="testimonial-card fade-in">
+        <blockquote>"Coming soon — we can't wait to hear your stories."</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FAQ ═══════ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div style="text-align: center;">
+        <p class="section-label fade-in">Questions?</p>
+        <h2 class="section-headline fade-in">We've got answers.</h2>
+      </div>
+      <div class="faq-list fade-in">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Is it really free?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p class="faq-answer-inner">Yes. The core app — daily photos, timeline, favorites — is completely free. Premium features like photo books and prints are optional.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Does it work with cats?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p class="faq-answer-inner">Absolutely. Dogs, cats, rabbits, birds — if they have a face you love, we're here for it.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Are my photos private?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p class="faq-answer-inner">100%. Your photos live on your device. We don't upload, share, or sell your images. Ever.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>What if I miss a day?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p class="faq-answer-inner">No guilt, no streaks, no pressure. Pick up whenever you want. Your pet's face will be waiting.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Can I add multiple pets?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p class="faq-answer-inner">Yes! Add as many pets as you have faces to love.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>What can I make with my photos?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <p class="faq-answer-inner">Photo books (weekly, monthly, seasonal, yearly), prints, and auto-generated video slideshows.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FINAL CTA ═══════ -->
+  <section class="final-cta" id="download">
+    <div class="container">
+      <img src="images/mya-hat.jpg" alt="Mya wearing an adorable hat" class="cta-accent fade-in" loading="lazy" width="96" height="96">
+      <h2 class="section-headline fade-in">That face isn't going to<br>capture itself.</h2>
+      <p class="section-body fade-in" style="margin: 0 auto 32px;">Start your daily ritual today. It's free, it's private, and someday you'll be so glad you did.</p>
+      <div class="fade-in fade-in-delay-1">
+        <a href="#" class="app-store-btn" aria-label="Download on the App Store">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <div>
+            <span class="btn-text-small">Download on the</span>
+            <span class="btn-text-large">App Store</span>
+          </div>
+        </a>
+        <p class="btn-subtext">Free · iOS 17+</p>
+      </div>
+      <p class="cta-hashtag fade-in fade-in-delay-2">#AwwThatFace</p>
+    </div>
+  </section>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer class="site-footer">
+    <div class="container">
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="https://www.awwthatface.com/privacy.html">Privacy Policy</a>
+        <a href="https://www.awwthatface.com/support.html">Support</a>
+        <a href="#" aria-label="Instagram">Instagram</a>
+        <a href="#" aria-label="TikTok">TikTok</a>
+      </nav>
+      <p class="footer-copy">© 2026 Power On Media Group</p>
+      <p class="footer-hashtag">#AwwThatFace</p>
     </div>
   </footer>
 
-</div>
+  <script>
+    /* ── Scroll-triggered fade-in ── */
+    (function() {
+      const els = document.querySelectorAll('.fade-in');
+      const obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(function(el) { obs.observe(el); });
+    })();
 
-<script>
-// Email signup
-function handleSubmit() {
-  const input = document.getElementById('emailInput');
-  const section = document.getElementById('emailSection');
-  const button = document.getElementById('emailButton');
-  const email = input.value.trim();
+    /* ── Timeline animation (loops) ── */
+    (function() {
+      var grid = document.getElementById('timelineGrid');
+      if (!grid) return;
+      var cells = grid.querySelectorAll('.timeline-cell');
+      var running = false;
 
-  if (!email || !email.includes('@') || !email.includes('.')) {
-    input.style.borderColor = '#D4856B';
-    input.focus();
-    return;
-  }
+      function animate() {
+        if (running) return;
+        running = true;
+        // Reset
+        cells.forEach(function(c) { c.classList.remove('filled'); });
+        var i = 0;
+        function next() {
+          if (i >= cells.length) {
+            // Pause, then reset and loop
+            setTimeout(function() {
+              cells.forEach(function(c) { c.classList.remove('filled'); });
+              running = false;
+              setTimeout(animate, 800);
+            }, 2400);
+            return;
+          }
+          cells[i].classList.add('filled');
+          i++;
+          setTimeout(next, 420);
+        }
+        setTimeout(next, 600);
+      }
 
-  button.textContent = 'Sending…';
-  button.disabled = true;
+      var obs = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          animate();
+          obs.unobserve(grid);
+        }
+      }, { threshold: 0.3 });
+      obs.observe(grid);
+    })();
 
-  const formId = '1FAIpQLSdEEnpm6MeBN1v-N4edpBCShOg0l-G4UfeFvRXQmxpAHS3UaA';
-  const entryId = 'entry.912151270';
-  const url = `https://docs.google.com/forms/d/e/${formId}/formResponse`;
+    /* ── Payoff Mosaic Animation ── */
+    (function() {
+      var payoffSection = document.getElementById('payoff');
+      if (!payoffSection) return;
+      var grids = payoffSection.querySelectorAll('.mosaic-grid');
+      var animated = false;
 
-  fetch(url, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `${entryId}=${encodeURIComponent(email)}`
-  }).then(() => {
-    section.classList.add('submitted');
-  }).catch(() => {
-    section.classList.add('submitted');
-  });
-}
+      function animatePayoff() {
+        if (animated) return;
+        animated = true;
 
-document.getElementById('emailInput').addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') { e.preventDefault(); handleSubmit(); }
-});
+        // First: reset all cells to hidden
+        grids.forEach(function(grid) {
+          var cells = grid.querySelectorAll('.mosaic-cell');
+          cells.forEach(function(c) {
+            c.classList.remove('active');
+            c.classList.add('animating');
+          });
+        });
 
-// Scroll-triggered animations
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
+        // Animate Day 1 (1 cell pops in)
+        var day1Cells = grids[0].querySelectorAll('.mosaic-cell');
+        setTimeout(function() {
+          day1Cells[0].classList.add('pop');
+        }, 400);
+
+        // Animate Day 30 (cells pop in one by one, staggered)
+        var day30Cells = grids[1].querySelectorAll('.mosaic-cell');
+        var day30Active = [];
+        day30Cells.forEach(function(c, i) {
+          if (c.classList.contains('c1') || c.classList.contains('c2') || c.classList.contains('c3') || 
+              c.classList.contains('c4') || c.classList.contains('c5') || c.classList.contains('c6') || 
+              c.classList.contains('c7')) {
+            day30Active.push({ el: c, idx: i });
+          }
+        });
+        day30Active.forEach(function(item, i) {
+          setTimeout(function() {
+            item.el.classList.add('pop');
+          }, 1200 + (i * 80));
+        });
+
+        // Animate Day 365 (cells cascade in rapidly)
+        var day365Cells = grids[2].querySelectorAll('.mosaic-cell');
+        var delay365Start = 1200 + (day30Active.length * 80) + 400;
+        day365Cells.forEach(function(c, i) {
+          setTimeout(function() {
+            c.classList.add('pop');
+          }, delay365Start + (i * 30));
+        });
+      }
+
+      var obs = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          animatePayoff();
+          obs.unobserve(payoffSection);
+        }
+      }, { threshold: 0.25 });
+      obs.observe(payoffSection);
+    })();
+
+    /* ── Email Signup (Google Forms) ── */
+    function handleSubmit() {
+      var input = document.getElementById('emailInput');
+      var section = document.getElementById('emailSection');
+      var button = document.getElementById('emailButton');
+      var email = input.value.trim();
+      if (!email || !email.includes('@') || !email.includes('.')) {
+        input.style.borderColor = '#D4856B';
+        input.focus();
+        return;
+      }
+      button.textContent = 'Sending…';
+      button.disabled = true;
+      var formId = '1FAIpQLSdEEnpm6MeBN1v-N4edpBCShOg0l-G4UfeFvRXQmxpAHS3UaA';
+      var entryId = 'entry.912151270';
+      var url = 'https://docs.google.com/forms/d/e/' + formId + '/formResponse';
+      fetch(url, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: entryId + '=' + encodeURIComponent(email)
+      }).then(function() {
+        document.getElementById('emailForm').style.display = 'none';
+        section.querySelector('label').style.display = 'none';
+        section.querySelector('.email-success').style.display = 'block';
+      }).catch(function() {
+        document.getElementById('emailForm').style.display = 'none';
+        section.querySelector('label').style.display = 'none';
+        section.querySelector('.email-success').style.display = 'block';
+      });
     }
-  });
-}, { threshold: 0.15 });
+    document.getElementById('emailInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); handleSubmit(); }
+    });
 
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
-
+    /* ── FAQ Accordion ── */
+    (function() {
+      document.querySelectorAll('.faq-question').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var item = btn.parentElement;
+          var isOpen = item.classList.contains('open');
+          // Close all
+          document.querySelectorAll('.faq-item.open').forEach(function(el) {
+            el.classList.remove('open');
+            el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+          });
+          // Toggle
+          if (!isOpen) {
+            item.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
