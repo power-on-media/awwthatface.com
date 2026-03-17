@@ -204,7 +204,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(0.55) saturate(1.1);
+      filter: brightness(0.38) saturate(1.2);
     }
     .hero-bg::after {
       content: '';
@@ -212,8 +212,8 @@
       inset: 0;
       background: linear-gradient(
         180deg,
-        rgba(59, 35, 20, 0.25) 0%,
-        rgba(59, 35, 20, 0.45) 50%,
+        rgba(59, 35, 20, 0.50) 0%,
+        rgba(59, 35, 20, 0.55) 50%,
         rgba(253, 246, 236, 0.95) 92%,
         var(--off-white) 100%
       );
@@ -237,7 +237,7 @@
       color: var(--golden-amber);
       display: block;
       line-height: 1;
-      text-shadow: 0 2px 12px rgba(59, 35, 20, 0.15);
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5), 0 4px 30px rgba(59, 35, 20, 0.3);
     }
     .hero-logo .that-face {
       font-family: var(--display);
@@ -246,7 +246,7 @@
       color: #fff;
       display: block;
       line-height: 1.05;
-      text-shadow: 0 2px 20px rgba(59, 35, 20, 0.2);
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5), 0 4px 30px rgba(59, 35, 20, 0.3);
     }
     .hero-logo .that-face em {
       font-style: italic;
@@ -255,22 +255,24 @@
     .hero-tagline {
       font-family: var(--handwritten);
       font-size: clamp(22px, 4vw, 32px);
-      color: rgba(255, 255, 255, 0.85);
+      color: #fff;
       margin-bottom: 8px;
       font-weight: 500;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
     }
 
     .hero-subheadline {
       font-family: var(--body);
       font-size: clamp(16px, 2.5vw, 20px);
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255, 255, 255, 0.95);
       max-width: 520px;
       margin: 0 auto 36px;
       line-height: 1.6;
       font-weight: 400;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
     }
 
-    .hero .btn-subtext { color: rgba(255, 255, 255, 0.55); }
+    .hero .btn-subtext { color: rgba(255, 255, 255, 0.7); text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3); }
 
     /* Scroll indicator */
     .scroll-indicator {
@@ -875,14 +877,14 @@
       <p class="hero-tagline fade-in fade-in-delay-1">You know the one.</p>
       <p class="hero-subheadline fade-in fade-in-delay-2">One photo of your pet, every day.<br>Watch those moments become something beautiful.</p>
       <div class="fade-in fade-in-delay-3">
-        <a href="#" class="app-store-btn" aria-label="Download on the App Store">
+        <a href="#" class="app-store-btn" aria-label="Coming Soon to the App Store">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
           <div>
-            <span class="btn-text-small">Download on the</span>
+            <span class="btn-text-small">Coming Soon to the</span>
             <span class="btn-text-large">App Store</span>
           </div>
         </a>
-        <p class="btn-subtext">Free · iOS 17+</p>
+        <p class="btn-subtext">Free · iOS 17+ · Sign up below to get notified</p>
       </div>
 
       <!-- Email signup while waiting for App Store -->
@@ -1237,14 +1239,14 @@
       <h2 class="section-headline fade-in">That face isn't going to<br>capture itself.</h2>
       <p class="section-body fade-in" style="margin: 0 auto 32px;">Start your daily ritual today. It's free, it's private, and someday you'll be so glad you did.</p>
       <div class="fade-in fade-in-delay-1">
-        <a href="#" class="app-store-btn" aria-label="Download on the App Store">
+        <a href="#" class="app-store-btn" aria-label="Coming Soon to the App Store">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
           <div>
-            <span class="btn-text-small">Download on the</span>
+            <span class="btn-text-small">Coming Soon to the</span>
             <span class="btn-text-large">App Store</span>
           </div>
         </a>
-        <p class="btn-subtext">Free · iOS 17+</p>
+        <p class="btn-subtext">Free · iOS 17+ · Sign up below to get notified</p>
       </div>
       <p class="cta-hashtag fade-in fade-in-delay-2">#AwwThatFace</p>
     </div>
